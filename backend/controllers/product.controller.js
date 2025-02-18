@@ -166,14 +166,38 @@ export const getRecommendedProducts = async (req, res) => {
 };
 
 export const getProductsByCategory = async (req, res) => {
-	const { category } = req.params;
-	try {
-		const products = await Product.find({ category });
-		res.json({ products });
-	} catch (error) {
-		console.log("Error in getProductsByCategory controller", error.message);
-		res.status(500).json({ message: "Server error", error: error.message });
-	}
+  const { category } = req.params;
+  const { page = 1, limit = 9 } = req.query; // Default page = 1, limit = 10
+
+  try {
+    // Convert page and limit to numbers
+    const pageNumber = parseInt(page);
+    const limitNumber = parseInt(limit);
+
+    // Calculate the number of documents to skip
+    const skip = (pageNumber - 1) * limitNumber;
+
+    // Fetch products by category with pagination
+    const products = await Product.find({ category })
+      .skip(skip)
+      .limit(limitNumber);
+
+    // Get the total number of products in the category
+    const total = await Product.countDocuments({ category });
+
+    // Calculate total pages
+    const totalPages = Math.ceil(total / limitNumber);
+
+    res.status(200).json({
+      products,
+      total,
+      totalPages,
+      currentPage: pageNumber,
+    });
+  } catch (error) {
+    console.log("Error in getProductsByCategory controller", error.message);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
 };
 
 export const toggleFeaturedProduct = async (req, res) => {

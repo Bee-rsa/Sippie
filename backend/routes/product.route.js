@@ -18,7 +18,7 @@ router.get("/", protectRoute, adminRoute, getAllProducts);
 router.get("/featured", getFeaturedProducts);
 router.put("/:id", updateProduct);
 router.get('/:id', getProductById);
-router.get("/category/:category", getProductsByCategory);
+router.get("/category/:category", getProductsByCategory); // Pagination supported here
 router.get("/recommendations", getRecommendedProducts);
 router.post("/", protectRoute, adminRoute, createProduct);
 router.patch("/:id", protectRoute, adminRoute, toggleFeaturedProduct);

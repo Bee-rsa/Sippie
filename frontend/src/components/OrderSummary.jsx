@@ -142,7 +142,7 @@ const OrderSummary = () => {
 				</Link>
 
 				{/* Continue Shopping Link */}
-				<div className='flex items-center justify-center gap-2'>
+				<div className='flex items-center mt-2 justify-center gap-2'>
 					<span className='text-sm font-normal text-gray-400'>or</span>
 					<Link
 						to='/'

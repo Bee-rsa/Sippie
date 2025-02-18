@@ -131,74 +131,98 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <nav className="md:hidden mt-4 space-y-2 font-poppins">
+        <div
+          className={`fixed top-0 right-0 h-screen w-screen bg-black z-50 transition-transform duration-300 ease-in-out ${
+            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="flex justify-end p-4">
+            <button
+              onClick={toggleMobileMenu}
+              className="text-gray-300 hover:text-emerald-400 focus:outline-none"
+            >
+              <X size={24} />
+            </button>
+          </div>
+          <nav className="flex flex-col items-center space-y-4 font-poppins p-4">
             <Link
               to={"/"}
-              className="block text-gray-300 hover:text-emerald-400 transition duration-300 ease-in-out"
+              className="text-gray-300 hover:text-emerald-400 transition duration-300 ease-in-out"
               onClick={toggleMobileMenu}
             >
               Home
             </Link>
+            <hr className="w-full border-gray-700" /> {/* Horizontal line */}
             {user && (
-              <Link
-                to={"/cart"}
-                className="block relative group text-gray-300 hover:text-emerald-400 transition duration-300 ease-in-out"
-                onClick={toggleMobileMenu}
-              >
-                <ShoppingCart className="inline-block mr-1 group-hover:text-emerald-400" size={20} />
-                <span>Cart</span>
-                {cart.length > 0 && (
-                  <span className="absolute -top-2 -left-2 bg-emerald-500 text-white rounded-full px-2 py-0.5 text-xs group-hover:bg-emerald-400 transition duration-300 ease-in-out">
-                    {cart.length}
-                  </span>
-                )}
-              </Link>
+              <>
+                <Link
+                  to={"/cart"}
+                  className="relative group text-gray-300 hover:text-emerald-400 transition duration-300 ease-in-out"
+                  onClick={toggleMobileMenu}
+                >
+                  <ShoppingCart className="inline-block mr-1 group-hover:text-emerald-400" size={20} />
+                  <span>Cart</span>
+                  {cart.length > 0 && (
+                    <span className="absolute -top-2 -left-2 bg-emerald-500 text-white rounded-full px-2 py-0.5 text-xs group-hover:bg-emerald-400 transition duration-300 ease-in-out">
+                      {cart.length}
+                    </span>
+                  )}
+                </Link>
+                <hr className="w-full border-gray-700" /> {/* Horizontal line */}
+              </>
             )}
             {isAdmin && (
-              <Link
-                className="block bg-emerald-700 hover:bg-emerald-600 text-white px-3 py-1 rounded-md font-medium transition duration-300 ease-in-out items-center"
-                to={"/secret-dashboard"}
-                onClick={toggleMobileMenu}
-              >
-                <Lock className="inline-block mr-1" size={18} />
-                <span>Dashboard</span>
-              </Link>
+              <>
+                <Link
+                  className="bg-emerald-700 hover:bg-emerald-600 text-white px-3 py-1 rounded-md font-medium transition duration-300 ease-in-out items-center"
+                  to={"/secret-dashboard"}
+                  onClick={toggleMobileMenu}
+                >
+                  <Lock className="inline-block mr-1" size={18} />
+                  <span>Dashboard</span>
+                </Link>
+                <hr className="w-full border-gray-700" /> {/* Horizontal line */}
+              </>
             )}
 
             {user ? (
-              <button
-                className="block w-full bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md items-center transition duration-300 ease-in-out"
+              <>
+                <button
+                className="bg-gray-700 hover:bg-gray-600 font-bold text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 transition duration-300 ease-in-out"
                 onClick={() => {
                   logout();
                   toggleMobileMenu();
                 }}
               >
-                <LogOut size={18} />
-                <span className="ml-2">Log Out</span>
-              </button>
+                  <LogOut size={18} />
+                  <span className="ml-2">Log Out</span>
+                </button>
+                <hr className="w-full border-gray-700" /> {/* Horizontal line */}
+              </>
             ) : (
               <>
                 <Link
                   to={"/signup"}
-                  className="block bg-green-700 hover:bg-emerald-700 text-white py-2 px-4 rounded-md items-center transition duration-300 ease-in-out"
+                  className="bg-green-700 hover:bg-emerald-700 text-white py-2 px-4 rounded-md items-center transition duration-300 ease-in-out"
                   onClick={toggleMobileMenu}
                 >
                   <UserPlus className="mr-2" size={18} />
                   Sign Up
                 </Link>
+                <hr className="w-full border-gray-700" /> {/* Horizontal line */}
                 <Link
                   to={"/login"}
-                  className="block bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md items-center transition duration-300 ease-in-out"
+                  className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md items-center transition duration-300 ease-in-out"
                   onClick={toggleMobileMenu}
                 >
                   <LogIn className="mr-2" size={18} />
                   Login
                 </Link>
+                <hr className="w-full border-gray-700" /> {/* Horizontal line */}
               </>
             )}
           </nav>
-        )}
+        </div>
       </div>
     </header>
   );

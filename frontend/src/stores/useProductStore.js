@@ -30,16 +30,22 @@ export const useProductStore = create((set) => ({
 			toast.error(error.response.data.error || "Failed to fetch products");
 		}
 	},
-	fetchProductsByCategory: async (category) => {
+	fetchProductsByCategory: async (category, page = 1, limit = 9) => {
 		set({ loading: true });
 		try {
-			const response = await axios.get(`/products/category/${category}`);
-			set({ products: response.data.products, loading: false });
+		  const response = await axios.get(`/products/category/${category}?page=${page}&limit=${limit}`);
+		  set({
+			products: response.data.products, // Paginated products
+			total: response.data.total, // Total number of products
+			totalPages: response.data.totalPages, // Total number of pages
+			currentPage: response.data.currentPage, // Current page number
+			loading: false,
+		  });
 		} catch (error) {
-			set({ error: "Failed to fetch products", loading: false });
-			toast.error(error.response.data.error || "Failed to fetch products");
+		  set({ error: "Failed to fetch products", loading: false });
+		  toast.error(error.response?.data?.error || "Failed to fetch products");
 		}
-	},
+	  },
 	deleteProduct: async (productId) => {
 		set({ loading: true });
 		try {

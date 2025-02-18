@@ -39,7 +39,7 @@ const AdminPage = () => {
   }, [fetchAllProducts]);
 
   return (
-    <div className='min-h-screen relative overflow-hidden bg-black'>
+    <div className='min-h-screen mt-8 relative overflow-hidden bg-black'>
       <div className='relative z-10 container mx-auto px-4 py-16'>
         <motion.h1
           className='text-4xl font-bold mb-8 text-emerald-400 text-center'
@@ -60,6 +60,9 @@ const AdminPage = () => {
                 activeTab === tab.id
                   ? "bg-emerald-600 text-white"
                   : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+              } ${
+                // Hide "Create Product" and "Products" tabs on mobile
+                (tab.id === "create" || tab.id === "products") && "hidden md:flex"
               }`}
             >
               <tab.icon className='mr-2 h-5 w-5' />
@@ -77,7 +80,7 @@ const AdminPage = () => {
             transition={{ duration: 0.5 }}
           >
             {/* Sub-tabs for Create Product */}
-            <div className='flex justify-center mb-6'>
+            <div className='justify-center mb-6 hidden md:flex'> {/* Hide on mobile */}
               {createProductSubTabs.map((subTab) => (
                 <button
                   key={subTab.id}
@@ -94,18 +97,20 @@ const AdminPage = () => {
             </div>
 
             {/* Sub-tab Content with the respective product form */}
-            {activeSubTab === "design" && <DesignProductForm />}
-            {activeSubTab === "print" && <PrintProductForm />}
-            {activeSubTab === "signs" && <SignsProductForm />}
-            {activeSubTab === "branding" && <BrandingProductForm />}
-            {activeSubTab === "paint" && <PaintProductForm />}
+            <div className="hidden md:block"> {/* Hide all product forms on mobile */}
+              {activeSubTab === "design" && <DesignProductForm />}
+              {activeSubTab === "print" && <PrintProductForm />}
+              {activeSubTab === "signs" && <SignsProductForm />}
+              {activeSubTab === "branding" && <BrandingProductForm />}
+              {activeSubTab === "paint" && <PaintProductForm />}
+            </div>
           </motion.div>
         )}
 
         {/* Products Tab */}
         {activeTab === "products" && (
           <motion.div
-            className='bg-black backdrop-blur-lg rounded-xl p-8 shadow-2xl'
+            className='bg-black backdrop-blur-lg rounded-xl p-8 shadow-2xl hidden md:block' // Hide on mobile
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}

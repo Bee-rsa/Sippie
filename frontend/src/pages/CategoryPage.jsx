@@ -1,16 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useProductStore } from "../stores/useProductStore";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import ProductCard from "../components/ProductCard";
-import TableOfContents from "../components/TableOfContents"
+import TableOfContents from "../components/TableOfContents";
+
 const CategoryPage = () => {
-  const { fetchProductsByCategory, products } = useProductStore();
+  const { fetchProductsByCategory, products, totalPages, currentPage } = useProductStore();
   const { category } = useParams();
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    fetchProductsByCategory(category);
-  }, [fetchProductsByCategory, category]);
+    fetchProductsByCategory(category, page);
+  }, [fetchProductsByCategory, category, page]);
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
 
   return (
     <div className="min-h-screen font-poppins">
@@ -46,6 +52,23 @@ const CategoryPage = () => {
                 <ProductCard key={product._id} product={product} />
               ))}
             </motion.div>
+
+            {/* Pagination Controls */}
+            <div className="flex justify-center mt-8">
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index + 1}
+                  onClick={() => handlePageChange(index + 1)}
+                  className={`mx-1 px-4 py-2 rounded ${
+                    currentPage === index + 1
+                      ? 'bg-green-500 text-white'
+                      : 'bg-gray-200 text-gray-700'
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
