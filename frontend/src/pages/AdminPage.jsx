@@ -7,10 +7,10 @@ import ProductsList from "../components/ProductsList";
 import OrdersTab from "../components/OrdersTab";
 import { useProductStore } from "../stores/useProductStore";
 import DesignProductForm from "../forms/DesignProductForm"; // Import DesignProductForm
-import PrintProductForm from "../forms/PrintProductForm"; // Import PrintProductForm
+import PrintProductForm from "../forms/printProductForm"; // Import PrintProductForm
 import SignsProductForm from "../forms/signsProductForm"; // Import SignsProductForm
 import BrandingProductForm from "../forms/BrandingProductForm"; // Import BrandingProductForm
-import PaintProductForm from "../forms/PaintProductForm"; // Import PaintProductForm
+import PaintProductForm from "../forms/paintProductForm"; // Import PaintProductForm
 
 // Main Tabs
 const mainTabs = [
