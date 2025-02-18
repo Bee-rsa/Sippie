@@ -8,7 +8,7 @@ import OrdersTab from "../components/OrdersTab";
 import { useProductStore } from "../stores/useProductStore";
 import DesignProductForm from "../forms/DesignProductForm"; // Import DesignProductForm
 import PrintProductForm from "../forms/PrintProductForm"; // Import PrintProductForm
-import SignsProductForm from "../forms/SignsProductForm"; // Import SignsProductForm
+import SignsProductForm from "../forms/signsProductForm"; // Import SignsProductForm
 import BrandingProductForm from "../forms/BrandingProductForm"; // Import BrandingProductForm
 import PaintProductForm from "../forms/PaintProductForm"; // Import PaintProductForm
 
