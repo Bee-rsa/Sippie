@@ -26,6 +26,11 @@ const ProductDetails = () => {
   const { user } = useUserStore();
   const navigate = useNavigate();
 
+  // Scroll to the top of the page when the component mounts or productId changes
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to the top
+  }, [productId]);
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -136,45 +141,46 @@ const ProductDetails = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="flex flex-col lg:flex-row gap-4">
-        {/* Table of Contents */}
-        <div className="lg:w-1/4">
-          <TableOfContents /> {/* Using the TableOfContents component */}
+  <div className="flex flex-col lg:flex-row gap-4">
+    {/* Table of Contents - Hidden on mobile, visible on larger screens */}
+    <div className="hidden lg:block lg:w-1/4">
+      <TableOfContents /> {/* Using the TableOfContents component */}
+    </div>
+
+    {/* Product Details with Border */}
+    <div className="lg:w-3/4 flex mt-20 flex-col gap-6">
+      <div className="flex flex-col lg:flex-row gap-4 border border-gray-700 p-6 rounded-lg shadow-md">
+        {/* Product Image with Border */}
+        <div className="lg:w-1/2 mb-4 lg:mb-0">
+          <img
+            src={product?.image}
+            alt={product?.name}
+            className="w-full h-auto rounded-lg"
+          />
         </div>
 
-        {/* Product Details with Border */}
-        <div className="lg:w-3/4 flex mt-20 flex-col gap-6">
-          <div className="flex flex-col lg:flex-row gap-4 border border-gray-700 p-6 rounded-lg shadow-md">
-            {/* Product Image with Border */}
-            <div className="lg:w-1/2 mb-4 lg:mb-0">
-              <img
-                src={product?.image}
-                alt={product?.name}
-                className="w-full h-auto rounded-lg"
-              />
-            </div>
-
-            {/* Product Information (Name, Price, Description) */}
-            <div className="lg:w-1/2">
-              <div id="overview" className="mb-4">
-                <h1 className="text-3xl font-bold mb-2">{product?.name}</h1>
-              </div>
-
-              <div id="price" className="mb-4 border-b pb-4">
-  <p className="text-2xl font-bold text-green-500">
-    R{calculatedPrice.toFixed(2)} {/* Updated price based on selected options */}
-  </p>
-</div>
-
-              <div id="description" className="mb-4">
-                <p className="text-gray-400 text-m mb-2">{product?.description}</p>
-              </div>
-
-              <div id="category" className="mb-4">
-                <p className="text-gray-500 text-sm">Category: {product?.category}</p>
-              </div>
-            </div>
+        {/* Product Information (Name, Price, Description) */}
+        <div className="lg:w-1/2">
+          <div id="overview" className="mb-4">
+            <h1 className="text-3xl font-bold mb-2">{product?.name}</h1>
           </div>
+
+          <div id="price" className="mb-4 border-b pb-4">
+            <p className="text-2xl font-bold text-green-500">
+              R{calculatedPrice.toFixed(2)} {/* Updated price based on selected options */}
+            </p>
+          </div>
+
+          <div id="description" className="mb-4">
+            <p className="text-gray-400 text-m mb-2">{product?.description}</p>
+          </div>
+
+          <div id="category" className="mb-4">
+            <p className="text-gray-500 text-sm">Category: {product?.category}</p>
+          </div>
+        </div>
+      </div>
+
 
           {/* Print Options and Job Summary Section */}
           <div className="flex flex-col lg:flex-row gap-4">

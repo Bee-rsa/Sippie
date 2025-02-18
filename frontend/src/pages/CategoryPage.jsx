@@ -10,6 +10,12 @@ const CategoryPage = () => {
   const { category } = useParams();
   const [page, setPage] = useState(1);
 
+  // Scroll to the top of the page when category or page changes
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to the top
+  }, [category, page]);
+
+  // Fetch products when category or page changes
   useEffect(() => {
     fetchProductsByCategory(category, page);
   }, [fetchProductsByCategory, category, page]);

@@ -105,14 +105,14 @@ const Navbar = () => {
               <>
                 <Link
                   to={"/signup"}
-                  className="bg-green-700 hover:bg-emerald-700 text-white py-2 px-4 rounded-md flex items-center transition duration-300 ease-in-out"
+                  className="bg-green-700 hover:bg-emerald-700 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 transition duration-300 ease-in-out"
                 >
                   <UserPlus className="mr-2" size={18} />
                   Sign Up
                 </Link>
                 <Link
                   to={"/login"}
-                  className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md flex items-center transition duration-300 ease-in-out"
+                  className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 transition duration-300 ease-in-out"
                 >
                   <LogIn className="mr-2" size={18} />
                   Login
@@ -201,24 +201,24 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link
-                  to={"/signup"}
-                  className="bg-green-700 hover:bg-emerald-700 text-white py-2 px-4 rounded-md items-center transition duration-300 ease-in-out"
-                  onClick={toggleMobileMenu}
-                >
-                  <UserPlus className="mr-2" size={18} />
-                  Sign Up
-                </Link>
-                <hr className="w-full border-gray-700" /> {/* Horizontal line */}
-                <Link
-                  to={"/login"}
-                  className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md items-center transition duration-300 ease-in-out"
-                  onClick={toggleMobileMenu}
-                >
-                  <LogIn className="mr-2" size={18} />
-                  Login
-                </Link>
-                <hr className="w-full border-gray-700" /> {/* Horizontal line */}
+      <Link
+        to={"/signup"}
+        className="bg-green-700 hover:bg-emerald-700 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 transition duration-300 ease-in-out"
+        onClick={toggleMobileMenu}
+      >
+        <UserPlus size={18} />
+        <span>Sign Up</span>
+      </Link>
+      <hr className="w-full border-gray-700" /> {/* Horizontal line */}
+      <Link
+        to={"/login"}
+        className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 transition duration-300 ease-in-out"
+        onClick={toggleMobileMenu}
+      >
+        <LogIn size={18} />
+        <span>Login</span>
+      </Link>
+      <hr className="w-full border-gray-700" /> {/* Horizontal line */}
               </>
             )}
           </nav>
