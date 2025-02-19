@@ -30,6 +30,7 @@ const HomePage = () => {
           Discover high-quality, custom printing services for all your business and personal needs
         </p>
 
+
  {/* Design Category Image */}
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
   {/* Center the Design Image on small screens */}

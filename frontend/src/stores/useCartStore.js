@@ -8,6 +8,8 @@ export const useCartStore = create((set, get) => ({
 	total: 0,
 	subtotal: 0,
 	isCouponApplied: false,
+	totalWithCourier: 0, // Add this
+  	setTotalWithCourier: (amount) => set({ totalWithCourier: amount }),
 
 	getMyCoupon: async () => {
 		try {
