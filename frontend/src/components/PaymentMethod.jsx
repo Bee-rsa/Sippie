@@ -23,7 +23,7 @@ const HandleSubmit = async (e, totalCourier) => {
     });
 
     // Log the response for debugging
-    console.log(res);
+    console.log("PayPal Response:", res.data);
 
     // Ensure there is a response and valid links array
     if (res && res.data && res.data.links && res.data.links.length > 0) {
@@ -32,7 +32,8 @@ const HandleSubmit = async (e, totalCourier) => {
       
       // Redirect to the payment page using the URL from the response
       if (link) {
-        window.location.href = link;
+        window.open(link, "_blank"); // Opens PayPal in a new tab
+
       } else {
         alert("Payment link not found.");
       }
