@@ -117,7 +117,7 @@ app.post("/payment", async (req, res) => {
 
                 console.log(ParsedResponse);
 
-                return res.redirect("https://vdh-promotions.onrender.com/thank-you")
+                return res.redirect("https://vdh-promotions.onrender.com/success")
                 
             }
         })
