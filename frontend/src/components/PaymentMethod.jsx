@@ -18,7 +18,7 @@ const HandleSubmit = async (e, totalCourier) => {
 
   try {
     // Send POST request to the payment endpoint with totalInUSD in the request body
-    let res = await axios.post("https://vdh-promotions.onrender.com/payment", {
+    let res = await axios.post("http://localhost:5000/payment", {
       totalAmount: totalInUSD,  // Pass the converted USD value
     });
 
@@ -29,10 +29,11 @@ const HandleSubmit = async (e, totalCourier) => {
     if (res && res.data && res.data.links && res.data.links.length > 0) {
       // Get the approval URL (you may need to adjust this index based on the response structure)
       let link = res.data.links[1]?.href || res.data.links[0]?.href;
-
+      
+      // Redirect to the payment page using the URL from the response
       if (link) {
-        // Redirect to the PayPal payment page in the same tab
-        window.location.href = link;  // ✅ Redirects in the same tab
+        window.open(link, "_blank"); // Opens PayPal in a new tab
+
       } else {
         alert("Payment link not found.");
       }

@@ -38,14 +38,14 @@ app.post("/payment", async (req, res) => {
 	  }
   
 	  // Create the payment JSON dynamically
-	  const create_payment_json = {
+	  let create_payment_json = {
 		intent: "sale",
 		payer: {
 		  payment_method: "paypal",
 		},
 		redirect_urls: {
-		  return_url: "https://vdh-promotions.onrender.com/success",
-		  cancel_url: "https://vdh-promotions.onrender.com/failed",
+		  return_url: "http://localhost:5000/success-payment",
+		  cancel_url: "http://localhost:5000/failed",
 		},
 		transactions: [
 		  {
@@ -70,7 +70,7 @@ app.post("/payment", async (req, res) => {
 	  };
   
 	  // Create PayPal payment
-	  paypal.payment.create(create_payment_json, function (error, payment) {
+	  await paypal.payment.create(create_payment_json, function (error, payment) {
 		if (error) {
 		  console.error("PayPal Error:", error);
 		  res.status(500).json({ error: "Failed to create PayPal payment", details: error.response });
@@ -86,53 +86,61 @@ app.post("/payment", async (req, res) => {
   });
 
 
-  app.get('/success', async (req, res) => {
-    try {
-        console.log(req.query);
+  app.get("/success-payment", async (req, res) => {
+  try {
+    const { PayerID: payerId, paymentId } = req.query;
 
-        const payerId = req.query.PayerID;
-        const paymentId = req.query.paymentId;
-  
-		  const execute_payment_json = {
-			payer_id: payerId,
-			transactions: [
-			  {
-				amount: {
-				  currency: "USD",
-				  total: totalAmount,
-				},
-				description: "Payment for printing services.",
-			  },
-			],
-		  };
-  
-		  paypal.payment.execute(paymentId, express_checkout_json, function (error, payment){
-            if(error) {
-                console.log(error);
-                return res.redirect("https://vdh-promotions.onrender.com/failed")
-            } else {
-
-                const response = JSON.stringify(payment);
-                const ParsedResponse = JSON.parse(response);
-
-                console.log(ParsedResponse);
-
-                return res.redirect("https://vdh-promotions.onrender.com/success")
-                
-            }
-        })
-
-	} catch (error) {
-        console.log(error);
+    if (!payerId || !paymentId) {
+      console.error("Missing paymentId or PayerID");
+      return res.redirect("/http://localhost:5173/failed");
     }
-})
 
+    // Retrieve the payment details
+    paypal.payment.get(paymentId, function (error, payment) {
+      if (error) {
+        console.error("PayPal Error - Fetch Payment:", error);
+        return res.redirect("http://localhost:5173/failed");
+      }
+
+      const totalAmount = payment.transactions[0].amount.total; // Fetch correct total
+
+      const execute_payment_json = {
+        payer_id: payerId,
+        transactions: [
+          {
+            amount: {
+              currency: "USD",
+              total: totalAmount,
+            },
+            description: "Payment for printing services.",
+          },
+        ],
+      };
+
+      // Execute the payment
+      paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+        if (error) {
+          console.error("PayPal Error - Execute Payment:", error);
+          return res.redirect("http://localhost:5173/failed");
+        } else {
+          console.log("Payment Executed Successfully:", JSON.stringify(payment));
+
+          // Redirect back to frontend success page with confirmation
+          return res.redirect(`http://localhost:5173/success-payment`);
+        }
+      });
+    });
+  } catch (error) {
+    console.error("Server Error:", error);
+    res.redirect("http://localhost:5173/failed");
+  }
+});
 
 
 
 app.get('/failed', async (req, res) => {
 
-    return res.redirect("https://vdh-promotions.onrender.com/failed")
+    return res.redirect("http://localhost:5173/failed")
 })
 
 
@@ -158,3 +166,4 @@ app.listen(PORT, () => {
 	console.log("Server is running on http://localhost:" + PORT);
 	connectDB();
 });
+
