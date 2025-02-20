@@ -29,10 +29,10 @@ const HandleSubmit = async (e, totalCourier) => {
     if (res && res.data && res.data.links && res.data.links.length > 0) {
       // Get the approval URL (you may need to adjust this index based on the response structure)
       let link = res.data.links[1]?.href || res.data.links[0]?.href;
-      
-      // Redirect to the payment page using the URL from the response in the same tab
+
       if (link) {
-        window.location.href = link;
+        // Redirect to the PayPal payment page in the same tab
+        window.location.href = link;  // ✅ Redirects in the same tab
       } else {
         alert("Payment link not found.");
       }

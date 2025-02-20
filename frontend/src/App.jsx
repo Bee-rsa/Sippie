@@ -19,8 +19,10 @@ import CategoryPage from "./pages/CategoryPage";
 import ProductDetails from "./pages/ProductDetails";
 import DesignCustomization from "./pages/DesignCustomization";
 import CartPage from "./pages/CartPage";
-import SuccessPage from "./pages/SuccessPayment";
-import Checkout from "./pages/ProceedToCheckout"
+import SuccessPage from "./pages/Success.jsx";
+import Checkout from "./pages/ProceedToCheckout";
+import FailedPage from "./pages/FailedPage";
+import ThankYou from "./pages/ThankYou";
 
 function App() {
   const { user, checkAuth, checkingAuth } = useUserStore();
@@ -55,14 +57,16 @@ function App() {
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/design-customization" element={<DesignCustomization />} />
           <Route path="/contact-page" element={<ContactPage />} />
-          <Route path="/success-payment" element={<SuccessPage />} />
           <Route path="/signup" element={!user ? <SignUpPage /> : <Navigate to="/" />} />
           <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/" />} />
           <Route path="/secret-dashboard" element={user?.role === "admin" ? <AdminPage /> : <Navigate to="/login" />} />
           <Route path="/category/:category" element={<CategoryPage />} />
           <Route path="/products/:productId" element={<ProductDetails />} />
           <Route path="/cart" element={user ? <CartPage /> : <Navigate to="/login" />} />
-          <Route path="proceed-to-checkout" element={user ? <Checkout /> : <Navigate to="/login" />} />
+          <Route path="/proceed-to-checkout" element={user ? <Checkout /> : <Navigate to="/login" />} />
+          <Route path="/success" element={<SuccessPage />} />
+          <Route path="/thank-you" element={<ThankYou />} />
+          <Route path="/failed" element={user ? <FailedPage /> : <Navigate to="/login" />} />
 
         </Routes>
         <Footer />
