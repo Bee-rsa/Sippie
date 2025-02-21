@@ -57,7 +57,6 @@ function App() {
           <Route path='/terms-and-conditions' element={<TermsAndConditions />} />
           <Route path='/design-customization' element={<DesignCustomization />} />
           <Route path='/contact-page' element={<ContactPage />} />
-          <Route path='/success-payment' element={<SuccessPage />} />
           <Route path='/signup' element={!user ? <SignUpPage /> : <Navigate to='/' />} />
           <Route path='/login' element={!user ? <LoginPage /> : <Navigate to='/' />} />
           <Route
