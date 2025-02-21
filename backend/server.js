@@ -44,7 +44,7 @@ app.post("/payment", async (req, res) => {
 		  payment_method: "paypal",
 		},
 		redirect_urls: {
-		  return_url: "https://vdh-promotions.onrender.com/success",
+		  return_url: "https://vdh-promotions.onrender.com/success-payment",
 		  cancel_url: "https://vdh-promotions.onrender.com/failed",
 		},
 		transactions: [
