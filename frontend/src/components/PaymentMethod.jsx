@@ -18,7 +18,7 @@ const HandleSubmit = async (e, totalCourier) => {
 
   try {
     // Send POST request to the payment endpoint with totalInUSD in the request body
-    let res = await axios.post("http://localhost:5000/payment", {
+    let res = await axios.post("https://vdh-promotions.onrender.com/payment", {
       totalAmount: totalInUSD,  // Pass the converted USD value
     });
 
