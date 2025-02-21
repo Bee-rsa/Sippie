@@ -15,7 +15,6 @@ import DesignCustomization from "./pages/DesignCustomization";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import CartPage from "./pages/CartPage";
-import SuccessPage from "./pages/SuccessPayment";
 import ProceedToCheckOut from "./pages/ProceedToCheckout"; // Import the ProceedToCheckOut page
 import { Toaster } from "react-hot-toast";
 import { useUserStore } from "./stores/useUserStore.js";
