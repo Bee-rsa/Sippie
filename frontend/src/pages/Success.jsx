@@ -36,17 +36,18 @@ const Success = () => {
   }, [searchParams]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg text-center">
-        <h1 className="text-3xl font-bold text-green-600 mb-4">
+    <div className="min-h-screen flex items-center justify-center bg-black p-4">
+      <div className="bg-white p-8 rounded-lg shadow-lg text-center w-full max-w-md">
+        <h1 className="text-3xl sm:text-4xl font-bold text-green-600 mb-4">
           Payment Successful!
         </h1>
-        <p className="text-gray-700 mb-6">
-          Thank you for your purchase. Your payment has been successfully processed.
+        <p className="text-gray-700 mb-6 text-base sm:text-lg">
+          Your payment has been successfully processed. An email with your order details
+          will be sent shortly. Thank you for your purchase.
         </p>
         <a
-          href="/" // Link to the homepage
-          className="inline-block bg-green-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-600 transition-all duration-300"
+          href="/"
+          className="inline-block bg-green-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-600 transition-all duration-300 text-sm sm:text-base"
         >
           Return to Homepage
         </a>
