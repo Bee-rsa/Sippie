@@ -16,7 +16,7 @@ const HandleSubmit = async (e, totalCourier) => {
   // Convert totalCourier (ZAR) to USD
   const totalInUSD = totalCourier * EXCHANGE_RATE;
 
-    let res = await axios.post("https://vdh-promotions.onrender.com/payment", {
+    let res = await axios.post("http://localhost:5000/payment", {
       totalAmount: totalInUSD,  // Pass the converted USD value
     });
 

@@ -45,8 +45,8 @@ app.post("/payment", async (req, res) => {
         payment_method: "paypal",
       },
       redirect_urls: {
-        return_url: "https://vdh-promotions.onrender.com/success",
-        cancel_url: "https://vdh-promotions.onrender.com/failed",
+        return_url: "http://localhost:5173/success",
+        cancel_url: "http://localhost:5173/failed",
       },
       transactions: [
         {
@@ -93,7 +93,7 @@ app.get("/success", async (req, res) => {
 
     if (!paymentId || !PayerID) {
       console.error("Missing paymentId or PayerID");
-      return res.redirect("https://vdh-promotions.onrender.com/failed");
+      return res.redirect("http://localhost:5173/failed");
     }
 
     // Execute the payment
@@ -104,22 +104,22 @@ app.get("/success", async (req, res) => {
     paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
       if (error) {
         console.error("PayPal Error - Execute Payment:", error);
-        return res.redirect("https://vdh-promotions.onrender.com/failed");
+        return res.redirect("http://localhost:5173/failed");
       } else {
         console.log("Payment Executed Successfully:", JSON.stringify(payment));
         // After execution, redirect to static success page (without query parameters)
-		return res.redirect("https://vdh-promotions.onrender.com/success");
+		return res.redirect("http://localhost:5173/success");
       }
     });
   } catch (error) {
     console.error("Server Error:", error);
-    res.redirect("https://vdh-promotions.onrender.com/failed");
+    res.redirect("http://localhost:5173/failed");
   }
 });
 
 // Failed payment route
 app.get('/failed', async (req, res) => {
-  return res.redirect("https://vdh-promotions.onrender.com/failed");
+  return res.redirect("http://localhost:5173/failed");
 });
 
 // Serve frontend in production
