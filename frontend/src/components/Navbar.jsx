@@ -3,11 +3,25 @@ import { Link } from "react-router-dom";
 import { useUserStore } from "../stores/useUserStore";
 import { useState, useEffect } from "react";
 import { useCartStore } from "../stores/useCartStore";
+ // Ensure this import is added
 
 const Navbar = () => {
-  const { user, logout } = useUserStore();
+  const { user } = useUserStore();
   const isAdmin = user?.role === "admin";
   const { cart } = useCartStore();
+  const logout = useUserStore((state) => state.logout);
+  const clearCart = useCartStore((state) => state.clearCart);
+
+  const handleLogout = async () => {
+    try {
+      await logout(); // Call the logout function from your auth store
+      clearCart(); // Clear the cart when logging out
+      setIsMobileMenuOpen(false); // Close the mobile menu when logging out
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
+  
 
   // State to control the visibility of the navbar
   const [isVisible, setIsVisible] = useState(true);
@@ -96,7 +110,7 @@ const Navbar = () => {
             {user ? (
               <button
                 className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md flex items-center transition duration-300 ease-in-out"
-                onClick={logout}
+                onClick={handleLogout}
               >
                 <LogOut size={18} />
                 <span className="hidden sm:inline ml-2">Log Out</span>
@@ -188,12 +202,9 @@ const Navbar = () => {
             {user ? (
               <>
                 <button
-                className="bg-gray-700 hover:bg-gray-600 font-bold text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 transition duration-300 ease-in-out"
-                onClick={() => {
-                  logout();
-                  toggleMobileMenu();
-                }}
-              >
+                  className="bg-gray-700 hover:bg-gray-600 font-bold text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 transition duration-300 ease-in-out"
+                  onClick={handleLogout}
+                >
                   <LogOut size={18} />
                   <span className="ml-2">Log Out</span>
                 </button>
@@ -201,24 +212,24 @@ const Navbar = () => {
               </>
             ) : (
               <>
-      <Link
-        to={"/signup"}
-        className="bg-green-700 hover:bg-emerald-700 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 transition duration-300 ease-in-out"
-        onClick={toggleMobileMenu}
-      >
-        <UserPlus size={18} />
-        <span>Sign Up</span>
-      </Link>
-      <hr className="w-full border-gray-700" /> {/* Horizontal line */}
-      <Link
-        to={"/login"}
-        className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 transition duration-300 ease-in-out"
-        onClick={toggleMobileMenu}
-      >
-        <LogIn size={18} />
-        <span>Login</span>
-      </Link>
-      <hr className="w-full border-gray-700" /> {/* Horizontal line */}
+                <Link
+                  to={"/signup"}
+                  className="bg-green-700 hover:bg-emerald-700 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 transition duration-300 ease-in-out"
+                  onClick={toggleMobileMenu}
+                >
+                  <UserPlus size={18} />
+                  <span>Sign Up</span>
+                </Link>
+                <hr className="w-full border-gray-700" /> {/* Horizontal line */}
+                <Link
+                  to={"/login"}
+                  className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md flex items-center justify-center space-x-2 transition duration-300 ease-in-out"
+                  onClick={toggleMobileMenu}
+                >
+                  <LogIn size={18} />
+                  <span>Login</span>
+                </Link>
+                <hr className="w-full border-gray-700" /> {/* Horizontal line */}
               </>
             )}
           </nav>
