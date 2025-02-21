@@ -63,7 +63,7 @@ function App() {
           <Route path="/products/:productId" element={<ProductDetails />} />
           <Route path="/cart" element={user ? <CartPage /> : <Navigate to="/login" />} />
           <Route path="/proceed-to-checkout" element={user ? <Checkout /> : <Navigate to="/login" />} />
-          <Route path="/success-payment" element={<SuccessPayment />} />
+          <Route path="/" element={<SuccessPayment />} />
           <Route path="/failed" element={user ? <FailedPage /> : <Navigate to="/login" />} />
 
         </Routes>
