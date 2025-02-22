@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "../lib/axios";
 import { Users, Package, ShoppingCart, DollarSign } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import PropTypes from "prop-types"; // Import PropTypes for prop validation
 
 const AnalyticsTab = () => {
 	const [analyticsData, setAnalyticsData] = useState({
@@ -119,3 +120,11 @@ const AnalyticsCard = ({ title, value, icon: Icon, color }) => (
 		</div>
 	</motion.div>
 );
+
+// Adding PropTypes for prop validation
+AnalyticsCard.propTypes = {
+	title: PropTypes.string.isRequired,
+	value: PropTypes.string.isRequired,
+	icon: PropTypes.elementType.isRequired, // Validates that the icon is a React component
+	color: PropTypes.string.isRequired,
+};

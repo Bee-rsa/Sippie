@@ -84,3 +84,20 @@ function getDatesInRange(startDate, endDate) {
 
 	return dates;
 }
+
+export const updateAnalytics = async () => {
+	const salesData = await Order.aggregate([
+	  {
+		$match: { status: "Paid" }, // Only consider paid orders
+	  },
+	  {
+		$group: {
+		  _id: null,
+		  totalSales: { $sum: 1 },
+		  totalRevenue: { $sum: "$totalAmount" },
+		},
+	  },
+	]);
+  
+	return salesData[0] || { totalSales: 0, totalRevenue: 0 };
+  };

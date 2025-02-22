@@ -33,23 +33,43 @@ const DesignCustomization = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black py-16 px-6">
-      <h1 className="text-5xl font-bold mt-8 text-blue-500 text-center mb-12">Professional Custom Design Services</h1>
-      <div className="flex flex-col lg:flex-row justify-between items-start space-x-6 px-6">
-        <div className="w-full lg:w-1/2 text-white py-16 px-6 rounded-lg border-2 border-gray-500">
-          <h2 className="text-3xl font-bold text-blue-900 mb-6 text-center">Explore Our Design Possibilities</h2>
+    <div className="min-h-screen bg-black py-16 px-4 sm:px-6 lg:px-8">
+      <h1 className="text-5xl font-bold mt-8 text-blue-500 text-center mb-12">
+        Professional Custom Design Services
+      </h1>
+      <div className="flex flex-col lg:flex-row justify-between items-start space-y-6 lg:space-y-0 lg:space-x-6">
+        <div className="w-full lg:w-1/2 text-white py-16 px-4 sm:px-6 lg:px-6 rounded-lg border-2 border-gray-500">
+          <h2 className="text-3xl font-bold text-blue-900 mb-6 text-center">
+            Explore Our Design Possibilities
+          </h2>
           <div className="relative">
             <div className="text-center mb-6">
               <h3 className="text-2xl font-semibold">{designTypes[currentSlide].title}</h3>
               <p className="text-lg">{designTypes[currentSlide].description}</p>
             </div>
-            <img src={designTypes[currentSlide].image} alt={designTypes[currentSlide].title} className="w-full h-64 object-cover rounded-lg" />
-            <button onClick={prevSlide} className="absolute left-0 text-3xl text-white bg-black p-2 rounded-full">&#8592;</button>
-            <button onClick={nextSlide} className="absolute right-0 text-3xl text-white bg-black p-2 rounded-full">&#8594;</button>
+            <img 
+              src={designTypes[currentSlide].image} 
+              alt={designTypes[currentSlide].title} 
+              className="w-full h-64 object-cover rounded-lg" 
+            />
+            <button 
+              onClick={prevSlide} 
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 text-3xl text-white bg-black p-2 rounded-full"
+            >
+              &#8592;
+            </button>
+            <button 
+              onClick={nextSlide} 
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 text-3xl text-white bg-black p-2 rounded-full"
+            >
+              &#8594;
+            </button>
           </div>
         </div>
-        <div className="w-full lg:w-1/2 px-6 py-8 bg-black text-white rounded-lg border-2 border-gray-500">
-          <h2 className="text-3xl font-bold text-green-500 mb-6">Request a Custom Design Quote</h2>
+        <div className="w-full lg:w-1/2 px-4 sm:px-6 py-8 bg-black text-white rounded-lg border-2 border-gray-500">
+          <h2 className="text-3xl font-bold text-green-500 mb-6">
+            Request a Custom Design Quote
+          </h2>
           <form ref={form} onSubmit={sendEmail}>
             <div className="mb-4">
               <label className="block text-lg font-medium">Full Name</label>
@@ -68,10 +88,12 @@ const DesignCustomization = () => {
               </select>
             </div>
             <div className="mb-4">
-              <label className="block text-lg font-medium">Message</label>
+              <label className="block text-lg font-medium">Tell Us More On How We Can Help</label>
               <textarea name="message" rows="4" required className="mt-2 w-full p-3 border border-gray-300 rounded-lg"></textarea>
             </div>
-            <button type="submit" className="w-full py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">Send Request</button>
+            <button type="submit" className="w-full py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition">
+              Send Request
+            </button>
           </form>
         </div>
       </div>

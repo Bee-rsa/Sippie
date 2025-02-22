@@ -85,4 +85,33 @@ export const useProductStore = create((set) => ({
 			console.log("Error fetching featured products:", error);
 		}
 	},
+
+  updateProduct: async (productId, updatedData) => {
+    try {
+      const response = await fetch(`/api/products/${productId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update product");
+      }
+
+      const data = await response.json();
+      set((state) => ({
+        products: state.products.map((product) =>
+          product._id === productId ? { ...product, ...updatedData } : product
+        ),
+      }));
+      return data;
+    } catch (error) {
+      console.error("Error updating product:", error);
+      throw error;
+    }
+  },
 }));
+
+export default useProductStore;
