@@ -30,10 +30,10 @@ paypal.configure({
 
 // Nodemailer transporter setup
 const transporter = nodemailer.createTransport({
-  service: "gmail", // Use Gmail or another service
+  service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER, // Your email address
-    pass: process.env.EMAIL_PASSWORD, // Your email password or app-specific password
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD,
   },
 });
 
@@ -41,11 +41,11 @@ const transporter = nodemailer.createTransport({
 const sendEmail = async (to, subject, text, html) => {
   try {
     const mailOptions = {
-      from: process.env.EMAIL_USER, // Sender address
-      to, // Recipient address
-      subject, // Email subject
-      text, // Plain text body
-      html, // HTML body
+      from: process.env.EMAIL_USER,
+      to,
+      subject,
+      text,
+      html,
     };
 
     const info = await transporter.sendMail(mailOptions);
@@ -60,14 +60,12 @@ const sendEmail = async (to, subject, text, html) => {
 // PayPal payment route
 app.post("/payment", async (req, res) => {
   try {
-    const { totalAmount } = req.body; // Get the dynamic totalAmount from the frontend
+    const { totalAmount } = req.body;
 
-    // Validate the totalAmount
     if (typeof totalAmount !== "number" || totalAmount <= 0) {
       throw new Error("Invalid totalAmount. It must be a positive number.");
     }
 
-    // Create the payment JSON dynamically
     let create_payment_json = {
       intent: "sale",
       payer: {
@@ -82,31 +80,30 @@ app.post("/payment", async (req, res) => {
           item_list: {
             items: [
               {
-                name: "Printing Service", // Replace with your item name
-                sku: "PRINT001", // Replace with your SKU
-                price: totalAmount.toFixed(2), // Use the dynamic totalAmount
-                currency: "USD", // Change currency if needed
+                name: "Printing Service",
+                sku: "PRINT001",
+                price: totalAmount.toFixed(2),
+                currency: "USD",
                 quantity: 1,
               },
             ],
           },
           amount: {
-            currency: "USD", // Change currency if needed
-            total: totalAmount.toFixed(2), // Use the dynamic totalAmount
+            currency: "USD",
+            total: totalAmount.toFixed(2),
           },
           description: "Payment for printing services.",
         },
       ],
     };
 
-    // Create PayPal payment
     paypal.payment.create(create_payment_json, function (error, payment) {
       if (error) {
         console.error("PayPal Error:", error);
         res.status(500).json({ error: "Failed to create PayPal payment", details: error.response });
       } else {
         console.log("PayPal Payment Created:", payment);
-        console.log("Approval URL:", payment.links[1].href); // Log the approval URL
+        console.log("Approval URL:", payment.links[1].href);
         res.json(payment);
       }
     });
@@ -126,7 +123,6 @@ app.get("/success-payment", async (req, res) => {
       return res.redirect("https://vdh-promotions.onrender.com/failed");
     }
 
-    // Execute the payment
     const execute_payment_json = {
       payer_id: PayerID,
     };
@@ -138,13 +134,22 @@ app.get("/success-payment", async (req, res) => {
       } else {
         console.log("Payment Executed Successfully:", JSON.stringify(payment));
 
-        // Extract customer email and order details from the payment object
         const customerEmail = payment.payer.payer_info.email;
-        const orderId = payment.transactions[0].invoice_number || "N/A"; // Use invoice number or a placeholder
+        const orderId = payment.transactions[0].invoice_number || "N/A";
+
+        // Validate customer email
+        const isValidEmail = (email) => {
+          const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return regex.test(email);
+        };
+
+        if (!isValidEmail(customerEmail)) {
+          console.error("Invalid customer email:", customerEmail);
+          return res.redirect("https://vdh-promotions.onrender.com/failed");
+        }
 
         // Send confirmation emails
         try {
-          // Email 1: Confirmation email to the customer
           await sendEmail(
             customerEmail,
             "Payment Confirmation",
@@ -152,7 +157,6 @@ app.get("/success-payment", async (req, res) => {
             `<p>Thank you for your payment! Your order ID is <strong>${orderId}</strong>.</p>`
           );
 
-          // Email 2: Notification email to the admin
           await sendEmail(
             "cleaverbrendan100@gmail.com",
             "New Payment Received",
@@ -160,7 +164,6 @@ app.get("/success-payment", async (req, res) => {
             `<p>A new payment has been received for order ID <strong>${orderId}</strong>.</p>`
           );
 
-          // Email 3: Shipping confirmation email to the customer
           await sendEmail(
             customerEmail,
             "Shipping Confirmation",
@@ -173,7 +176,6 @@ app.get("/success-payment", async (req, res) => {
           console.error("Error sending emails:", emailError);
         }
 
-        // Redirect to the frontend success page
         return res.redirect("https://vdh-promotions.onrender.com/success");
       }
     });
