@@ -14,6 +14,8 @@ const productAdminRoutes = require("./routes/productAdminRoutes");
 const adminOrderRoutes = require("./routes/adminOrderRoutes");
 
 const app = express();
+app.use(express.json());
+app.use(cors());
 
 // Increase the payload size limit to 50MB
 app.use(express.json({ limit: "50mb" }));
@@ -29,7 +31,7 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 
 app.get("/", (req, res) => {
-  res.send("WELCOME TO RABBIT API!");
+  res.send("WELCOME TO Van Der Holtz Promotions!");
 });
 
 // API Routes
