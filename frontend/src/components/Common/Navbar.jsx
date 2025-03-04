@@ -3,7 +3,7 @@ import {
   HiOutlineUser,
   HiOutlineShoppingBag,
   HiBars3BottomRight,
-  HiOutlineLockClosed, // Add lock icon
+  HiOutlineLockClosed,
 } from "react-icons/hi2";
 import LogoImg from "../../assets/VDH LOGO.png";
 import SearchBar from "./SearchBar";
@@ -11,7 +11,7 @@ import CartDrawer from "../Layout/CartDrawer";
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../redux/slices/authSlice.js"; // adjust import as needed
+import { logout } from "../../redux/slices/authSlice.js";
 
 const Navbar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -38,8 +38,8 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Main content wrapper with conditional blur when mobile nav is open */}
-      <div className={`${navDrawerOpen ? "filter blur-sm" : ""}`}>
+      {/* Main content wrapper */}
+      <div>
         <nav className="container w-full bg-black max-w-none flex items-center justify-between py-4 px-4 sm:px-6">
           {/* Left - Logo */}
           <div>
@@ -47,7 +47,7 @@ const Navbar = () => {
               <img
                 src={LogoImg}
                 alt="E-Commerce Logo"
-                className="h-24 sm:h-32" // Adjust the height as needed
+                className="h-24 sm:h-32"
               />
             </Link>
           </div>
@@ -91,7 +91,7 @@ const Navbar = () => {
                 to="/admin"
                 className="hidden md:flex items-center justify-center bg-green-500 px-3 py-1 rounded text-sm md:text-base text-white hover:bg-green-600 transition-colors whitespace-nowrap"
               >
-                <HiOutlineLockClosed className="h-4 w-4 mr-1" /> {/* Lock icon */}
+                <HiOutlineLockClosed className="h-4 w-4 mr-1" />
                 <span>Admin</span>
               </Link>
             )}
@@ -106,7 +106,8 @@ const Navbar = () => {
                 </span>
               )}
             </button>
-            <div className="hidden md:block overflow-hidden">
+            {/* SearchBar - Visible on all screen sizes */}
+            <div className="flex-1 max-w-xs mx-4">
               <SearchBar />
             </div>
             <button onClick={toggleNavDrawer} className="md:hidden">
@@ -117,6 +118,14 @@ const Navbar = () => {
 
         <CartDrawer drawerOpen={drawerOpen} toggleCartDrawer={toggleCartDrawer} />
       </div>
+
+      {/* Backdrop for mobile drawer */}
+      {navDrawerOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={toggleNavDrawer}
+        />
+      )}
 
       {/* Mobile Navigation Drawer */}
       <div
@@ -131,7 +140,6 @@ const Navbar = () => {
         </div>
         <div className="p-4 space-y-6">
           <h2 className="text-xl text-green-500 font-semibold mb-2">Categories</h2>
-          {/* Underline spanning half width */}
           <div className="border-b border-gray-500 w-2/3 mb-4"></div>
           <nav className="space-y-4">
             <Link
@@ -169,21 +177,13 @@ const Navbar = () => {
             >
               Paint
             </Link>
-            {/* Underline under Paint with half width */}
-            <div className="border-b border-gray-500 w-2/3"></div>
           </nav>
 
           {/* Mobile-only items */}
           <div className="mt-6 space-y-4">
-            {/* My Cart text with icon, left-aligned, with underline */}
             <div className="w-full">
-              <div className="flex items-center space-x-2 text-white text-lg text-left">
-                <HiOutlineShoppingBag className="h-6 w-6 text-green-500" />
-                <span className="font-medium">My Cart ({cartItemCount})</span>
-              </div>
               <div className="border-b border-gray-500 w-2/3 mt-2"></div>
             </div>
-            {/* Admin route button centered */}
             {user && user.role === "admin" && (
               <div className="flex justify-left">
                 <Link
@@ -191,11 +191,12 @@ const Navbar = () => {
                   onClick={toggleNavDrawer}
                   className="flex items-center justify-center bg-green-500 w-2/3 px-2 py-2 rounded text-lg text-white hover:bg-green-600 transition-colors"
                 >
-                  <HiOutlineLockClosed className="h-4 w-4 mr-1" /> {/* Lock icon */}
+                  <HiOutlineLockClosed className="h-4 w-4 mr-1" />
                   <span>Admin</span>
                 </Link>
               </div>
             )}
+            <div className="border-b border-gray-500 w-2/3"></div>
           </div>
 
           {/* Logout button at the bottom */}

@@ -7,7 +7,8 @@ const TermsAndConditions = () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full -mt-1 flex bg-black flex-col items-center">
+
       <div className="container mx-auto px-4 py-12 mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Table of Contents */}
         <nav className="md:col-span-1 sticky top-16 h-auto shadow-lg rounded-lg p-4 max-h-screen overflow-y-auto border-2 text-white border-custom-blue font-poppins">
@@ -131,17 +132,17 @@ const TermsAndConditions = () => {
 
           <h2 id="contact" className="text-2xl font-bold mb-4 font-poppins">10. Reviews and Feedback</h2>
           <p className="mb-4">
-            Users are encouraged to provide feedback and reviews for the services they have received. All reviews must be truthful and based on the User&apos;s actual experience. Van Der Holtz Promotions reserves the right to remove reviews that are deemed inappropriate, false, or defamatory. Reviews and feedback provided by Users may be used for marketing purposes, but users can request that their feedback be removed at any time.
+            Users may submit reviews and feedback on the products and services provided by Van Der Holtz Promotions. All feedback must be accurate, honest, and respectful. Van Der Holtz Promotions reserves the right to remove any feedback that violates these guidelines or is deemed inappropriate. By submitting reviews, users grant Van Der Holtz Promotions the right to use, modify, and publish the feedback.
           </p>
 
           <h2 id="contact" className="text-2xl font-bold mb-4 font-poppins">11. Limitation of Liability</h2>
           <p className="mb-4">
-            Van Der Holtz Promotions is not responsible for any damages, losses, or injuries resulting from the use of the platform or the printing services provided. Users agree to indemnify and hold harmless Van Der Holtz Promotions, its affiliates, and employees from any claims, damages, or liabilities arising from their use of the platform. The maximum liability of Van Der Holtz Promotions is limited to the amount paid for the services in question.
+            Van Der Holtz Promotions is not liable for any damages resulting from the use of the platform, including any direct, indirect, incidental, or consequential damages. In the event of a dispute, the maximum liability of Van Der Holtz Promotions is limited to the amount paid by the user for the services purchased.
           </p>
 
           <h2 id="contact" className="text-2xl font-bold mb-4 font-poppins">12. Governing Law</h2>
           <p className="mb-4">
-            This Agreement is governed by and construed in accordance with the laws of the jurisdiction in which Van Der Holtz Promotions is based. Any legal disputes arising from the use of the platform will be resolved through binding arbitration, and the location of arbitration will be specified in the agreement.
+            These Terms and Conditions shall be governed by and construed in accordance with the laws of the jurisdiction in which Van Der Holtz Promotions operates. Any disputes arising from these Terms and Conditions will be subject to the exclusive jurisdiction of the courts in that jurisdiction.
           </p>
         </div>
       </div>

@@ -7,44 +7,44 @@ const Policy = () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col items-center bg-black">
+    <div className="w-full flex -mt-1 flex-col items-center bg-black">
       <div className="container mx-auto px-4 py-12 mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Table of Contents */}
         <nav className="md:col-span-1 sticky top-16 h-auto shadow-lg rounded-lg p-4 max-h-screen overflow-y-auto border-2 border-custom-blue font-poppins">
           <h2 className="text-xl font-bold mb-4 text-white border-b-2 pb-2">Table of Contents</h2>
           <ul className="space-y-2">
             <li>
-              <a href="#information" className="hover:no-underline hover:text-custom-blue transition duration-200 font-poppins">
+              <a href="#information" className="hover:no-underline hover:text-custom-blue text-white transition duration-200 font-poppins">
                 1. Information We Collect
               </a>
             </li>
             <li>
-              <a href="#usage" className="hover:no-underline hover:text-custom-blue transition duration-200 font-poppins">
+              <a href="#usage" className="hover:no-underline hover:text-custom-blue text-white transition duration-200 font-poppins">
                 2. How We Use Your Information
               </a>
             </li>
             <li>
-              <a href="#disclosure" className="hover:no-underline hover:text-custom-blue transition duration-200 font-poppins">
+              <a href="#disclosure" className="hover:no-underline hover:text-custom-blue text-white transition duration-200 font-poppins">
                 3. Disclosure of Your Information
               </a>
             </li>
             <li>
-              <a href="#security" className="hover:no-underline hover:text-custom-blue transition duration-200 font-poppins">
+              <a href="#security" className="hover:no-underline hover:text-custom-blue text-white transition duration-200 font-poppins">
                 4. Data Security
               </a>
             </li>
             <li>
-              <a href="#rights" className="hover:no-underline hover:text-custom-blue transition duration-200 font-poppins">
+              <a href="#rights" className="hover:no-underline hover:text-custom-blue text-white transition duration-200 font-poppins">
                 5. Your Rights
               </a>
             </li>
             <li>
-              <a href="#changes" className="hover:no-underline hover:text-custom-blue transition duration-200 font-poppins">
+              <a href="#changes" className="hover:no-underline hover:text-custom-blue text-white transition duration-200 font-poppins">
                 6. Changes to This Privacy Policy
               </a>
             </li>
             <li>
-              <a href="#contact" className="hover:no-underline hover:text-custom-blue transition duration-200 font-poppins">
+              <a href="#contact" className="hover:no-underline hover:text-custom-blue text-white transition duration-200 font-poppins">
                 7. Contact Us
               </a>
             </li>
@@ -52,7 +52,7 @@ const Policy = () => {
         </nav>
 
         {/* Main Content */}
-        <div className="md:col-span-2 max-h-screen overflow-y-auto pr-4">
+        <div className="md:col-span-2 text-white max-h-screen overflow-y-auto pr-4">
           <h1 className="text-3xl font-bold mb-6 font-poppins">Privacy Policy for Van Der Holtz Promotions</h1>
           <p className="mb-4"><strong>Effective Date:</strong> [19 February 2024]</p>
           <p className="mb-4">

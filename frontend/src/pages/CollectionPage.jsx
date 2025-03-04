@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { FaFilter } from "react-icons/fa";
 import FilterSidebar from "../components/Products/FilterSidebar";
 import SortOptions from "../components/Products/SortOptions";
 import ProductGrid from "../components/Products/ProductGrid";
@@ -27,9 +26,6 @@ const CollectionPage = () => {
     console.log("Redux State - Products:", products);
   }, [products]);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
 
   const handleClickOutside = (e) => {
     if (sidebarRef.current && !sidebarRef.current.contains(e.target)) {
@@ -46,16 +42,6 @@ const CollectionPage = () => {
 
   return (
     <div className="flex flex-col -mt-1 bg-black lg:flex-row">
-      {/* Mobile Filter button */}
-{/* Mobile Filter button */}
-<button
-  onClick={toggleSidebar}
-  className={`lg:hidden border p-2 rounded-md bg-gray-700 text-white focus:outline-none flex justify-center items-center ml-auto px-4 pr-6 w-auto z-50 ${isSidebarOpen ? 'hidden' : ''}`}
->
-  <FaFilter className="mr-2 text-white" /> Filters
-</button>
-
-
 
 
 {/* Filter Sidebar */}
@@ -67,6 +53,7 @@ const CollectionPage = () => {
 >
   <FilterSidebar />
 </div>
+
 
       
       <div className="flex-grow p-4">
