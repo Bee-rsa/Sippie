@@ -7,7 +7,11 @@ const TermsAndConditions = () => {
   }, []);
 
   return (
+<<<<<<< HEAD
     <div className="w-full -mt-1 flex bg-black flex-col items-center">
+=======
+    <div className="w-full flex flex-col items-center">
+>>>>>>> 1342fe2573a7b00321d7aaca583e3aa30f571559
 
       <div className="container mx-auto px-4 py-12 mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Table of Contents */}

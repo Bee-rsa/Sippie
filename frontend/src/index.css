@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,3 +8,6 @@
   font-optical-sizing: auto;
   font-style: normal;
 }
+=======
+@import "tailwindcss";
+>>>>>>> 1342fe2573a7b00321d7aaca583e3aa30f571559
