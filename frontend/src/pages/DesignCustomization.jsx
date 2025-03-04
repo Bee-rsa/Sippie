@@ -16,36 +16,12 @@ const DesignCustomization = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const designTypes = [
-    { 
-      title: "Graphic Design", 
-      description: "Bring your brand to life with stunning graphic design. Our team create visuals that convey your message and leave a lasting impact.", 
-      image: DesignImage 
-    },
-    { 
-      title: "Shopfront Design", 
-      description: "Transform your store's exterior into a captivating experience. Shopfronts that attract attention and enhance your brand's identity.", 
-      image: ShopfrontImage 
-    },
-    { 
-      title: "Wall Design", 
-      description: "Create dynamic, engaging wall murals or displays. Our wall designs serve as powerful storytelling tools, elevating your brand's presence in any space.", 
-      image: WallDesignImage 
-    },
-    { 
-      title: "Vehicle Design", 
-      description: "Turn your vehicle into a moving billboard! Our vehicle designs ensure that your brand is always on the move, reaching a wide audience wherever you go.", 
-      image: VehicleDesignImage 
-    },
-    { 
-      title: "Clothing Design", 
-      description: "Custom t-shirts, hoodies, or caps for your brand. We offer high-quality, unique designs that bring your ideas to life on every piece of apparel.", 
-      image: ClothingDesignImage 
-    },
-    { 
-      title: "Apparel Design", 
-      description: "From concept to creation, custom apparel that reflects your style. Our apparel designs are tailored to your brand's personality, ensuring a perfect fit for your audience.", 
-      image: ApparelDesignImage 
-    }
+    { title: "Graphic Design", description: "Bring your brand to life with stunning graphic design.", image: DesignImage },
+    { title: "Shopfront Design", description: "Transform your store's exterior into a captivating experience.", image: ShopfrontImage },
+    { title: "Wall Design", description: "Create dynamic, engaging wall murals or displays.", image: WallDesignImage },
+    { title: "Vehicle Design", description: "Turn your vehicle into a moving billboard!", image: VehicleDesignImage },
+    { title: "Clothing Design", description: "Custom t-shirts, hoodies, or caps for your brand.", image: ClothingDesignImage },
+    { title: "Apparel Design", description: "From concept to creation, custom apparel that reflects your style.", image: ApparelDesignImage },
   ];
 
   const nextSlide = useCallback(() => setCurrentSlide((prev) => (prev + 1) % designTypes.length), [designTypes.length]);
