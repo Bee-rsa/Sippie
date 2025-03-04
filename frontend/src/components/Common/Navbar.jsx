@@ -1,0 +1,216 @@
+import { Link } from "react-router-dom";
+import {
+  HiOutlineUser,
+  HiOutlineShoppingBag,
+  HiBars3BottomRight,
+  HiOutlineLockClosed, // Add lock icon
+} from "react-icons/hi2";
+import LogoImg from "../../assets/VDH LOGO.png";
+import SearchBar from "./SearchBar";
+import CartDrawer from "../Layout/CartDrawer";
+import { useState } from "react";
+import { IoMdClose } from "react-icons/io";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../redux/slices/authSlice.js"; // adjust import as needed
+
+const Navbar = () => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [navDrawerOpen, setNavDrawerOpen] = useState(false);
+  const { cart } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const cartItemCount =
+    cart?.products?.reduce((total, product) => total + product.quantity, 0) || 0;
+
+  const toggleNavDrawer = () => {
+    setNavDrawerOpen(!navDrawerOpen);
+  };
+
+  const toggleCartDrawer = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    setNavDrawerOpen(false);
+  };
+
+  return (
+    <>
+      {/* Main content wrapper with conditional blur when mobile nav is open */}
+      <div className={`${navDrawerOpen ? "filter blur-sm" : ""}`}>
+        <nav className="container w-full bg-black max-w-none flex items-center justify-between py-4 px-4 sm:px-6">
+          {/* Left - Logo */}
+          <div>
+            <Link to="/" className="flex items-center">
+              <img
+                src={LogoImg}
+                alt="E-Commerce Logo"
+                className="h-24 sm:h-32" // Adjust the height as needed
+              />
+            </Link>
+          </div>
+          {/* Center - Navigation Links (hidden on mobile) */}
+          <div className="hidden md:flex space-x-6 lg:space-x-8">
+            <Link
+              to="/collections/all?gender=Men"
+              className="text-white hover:text-blue-700 text-sm md:text-base font-medium uppercase whitespace-nowrap"
+            >
+              Design
+            </Link>
+            <Link
+              to="/collections/all?category=Print"
+              className="text-white hover:text-pink-500 text-sm md:text-base font-medium uppercase whitespace-nowrap"
+            >
+              Print
+            </Link>
+            <Link
+              to="/collections/all?category=Signs"
+              className="text-white hover:text-yellow-500 text-sm md:text-base font-medium uppercase whitespace-nowrap"
+            >
+              Signs
+            </Link>
+            <Link
+              to="/collections/all?category=Branding"
+              className="text-white hover:text-red-500 text-sm md:text-base font-medium uppercase whitespace-nowrap"
+            >
+              Branding
+            </Link>
+            <Link
+              to="/collections/all?category=Paint"
+              className="text-white hover:text-lime-500 text-sm md:text-base font-medium uppercase whitespace-nowrap"
+            >
+              Paint
+            </Link>
+          </div>
+          {/* Right - Icons */}
+          <div className="flex items-center space-x-4 md:space-x-6">
+            {user && user.role === "admin" && (
+              <Link
+                to="/admin"
+                className="hidden md:flex items-center justify-center bg-green-500 px-3 py-1 rounded text-sm md:text-base text-white hover:bg-green-600 transition-colors whitespace-nowrap"
+              >
+                <HiOutlineLockClosed className="h-4 w-4 mr-1" /> {/* Lock icon */}
+                <span>Admin</span>
+              </Link>
+            )}
+            <Link to="/profile" className="hover:text-green-900">
+              <HiOutlineUser className="h-6 w-6 text-green-500" />
+            </Link>
+            <button onClick={toggleCartDrawer} className="relative hover:text-black">
+              <HiOutlineShoppingBag className="h-6 w-6 text-white" />
+              {cartItemCount > 0 && (
+                <span className="absolute -top-1 bg-rabbit-red text-white text-xs rounded-full px-2 py-0.5">
+                  {cartItemCount}
+                </span>
+              )}
+            </button>
+            <div className="hidden md:block overflow-hidden">
+              <SearchBar />
+            </div>
+            <button onClick={toggleNavDrawer} className="md:hidden">
+              <HiBars3BottomRight className="h-6 w-6 text-red-900" />
+            </button>
+          </div>
+        </nav>
+
+        <CartDrawer drawerOpen={drawerOpen} toggleCartDrawer={toggleCartDrawer} />
+      </div>
+
+      {/* Mobile Navigation Drawer */}
+      <div
+        className={`fixed top-0 left-0 w-3/4 sm:w-1/2 md:w-1/3 h-full bg-black shadow-lg transform transition-transform duration-300 z-50 overflow-y-auto ${
+          navDrawerOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="flex justify-end p-4">
+          <button onClick={toggleNavDrawer}>
+            <IoMdClose className="h-6 w-6 text-gray-600" />
+          </button>
+        </div>
+        <div className="p-4 space-y-6">
+          <h2 className="text-xl text-green-500 font-semibold mb-2">Categories</h2>
+          {/* Underline spanning half width */}
+          <div className="border-b border-gray-500 w-2/3 mb-4"></div>
+          <nav className="space-y-4">
+            <Link
+              to="/collections/all?gender=Men"
+              onClick={toggleNavDrawer}
+              className="block text-white text-lg hover:text-blue-500"
+            >
+              Design
+            </Link>
+            <Link
+              to="/collections/all?category=Print"
+              onClick={toggleNavDrawer}
+              className="block text-white text-lg hover:text-pink-500"
+            >
+              Print
+            </Link>
+            <Link
+              to="/collections/all?category=Signs"
+              onClick={toggleNavDrawer}
+              className="block text-white text-lg hover:text-yellow-500"
+            >
+              Signs
+            </Link>
+            <Link
+              to="/collections/all?category=Branding"
+              onClick={toggleNavDrawer}
+              className="block text-white text-lg hover:text-red-500"
+            >
+              Branding
+            </Link>
+            <Link
+              to="/collections/all?category=Paint"
+              onClick={toggleNavDrawer}
+              className="block text-white text-lg hover:text-lime-500"
+            >
+              Paint
+            </Link>
+            {/* Underline under Paint with half width */}
+            <div className="border-b border-gray-500 w-2/3"></div>
+          </nav>
+
+          {/* Mobile-only items */}
+          <div className="mt-6 space-y-4">
+            {/* My Cart text with icon, left-aligned, with underline */}
+            <div className="w-full">
+              <div className="flex items-center space-x-2 text-white text-lg text-left">
+                <HiOutlineShoppingBag className="h-6 w-6 text-green-500" />
+                <span className="font-medium">My Cart ({cartItemCount})</span>
+              </div>
+              <div className="border-b border-gray-500 w-2/3 mt-2"></div>
+            </div>
+            {/* Admin route button centered */}
+            {user && user.role === "admin" && (
+              <div className="flex justify-left">
+                <Link
+                  to="/admin"
+                  onClick={toggleNavDrawer}
+                  className="flex items-center justify-center bg-green-500 w-2/3 px-2 py-2 rounded text-lg text-white hover:bg-green-600 transition-colors"
+                >
+                  <HiOutlineLockClosed className="h-4 w-4 mr-1" /> {/* Lock icon */}
+                  <span>Admin</span>
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Logout button at the bottom */}
+          <div className="pt-8 flex justify-left">
+            <button
+              onClick={handleLogout}
+              className="w-2/3 bg-red-500 px-4 py-3 rounded text-white text-center hover:bg-red-600 transition-colors"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Navbar;
