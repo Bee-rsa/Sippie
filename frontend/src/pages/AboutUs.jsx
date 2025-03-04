@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import About from "../assets/2.jpg"
 
 const AboutUs = () => {
@@ -8,18 +7,6 @@ const AboutUs = () => {
       <div className="w-full h-[320px] mt-12 mb-6">
   <img src={About} alt="About Us" className="w-full h-full object-cover" />
 </div>
-
-
-
-=======
-const AboutUs = () => {
-  return (
-    <div className="font-poppins p-4 md:p-6">
-      {/* Image at the top - spans across the full width of the screen */}
-      <div className="w-full h-84 mt-20 mb-6">
-        <img src="/2.jpg" alt="About Us" className="w-full h-full object-cover" />
-      </div>
->>>>>>> 1342fe2573a7b00321d7aaca583e3aa30f571559
 
       <h1 className="text-5xl mt-10 text-green-500 font-bold text-center mb-4">Your Trusted Trade Print Partner</h1>
       
