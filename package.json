@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-{}
-=======
 {
   "name": "printing-ecommerce",
   "version": "1.0.0",
@@ -52,4 +49,4 @@
     "react-email": "^3.0.7"
   }
 }
->>>>>>> 1342fe2573a7b00321d7aaca583e3aa30f571559
+

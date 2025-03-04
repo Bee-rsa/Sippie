@@ -10,20 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@emailjs/browser": "^4.4.1",
     "@paypal/react-paypal-js": "^8.7.0",
     "@reduxjs/toolkit": "^2.5.0",
     "axios": "^1.7.9",
-    "framer-motion": "^12.4.7",
-    "lucide-react": "^0.475.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-feather": "^2.0.10",
     "react-icons": "^5.3.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^6.28.0",
-    "react-toastify": "^11.0.3",
     "sonner": "^1.7.0"
   },
   "devDependencies": {
@@ -40,24 +34,5 @@
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
     "vite": "^5.4.10"
-=======
-    "@tailwindcss/vite": "^4.0.6",
-    "printing-ecommerce": "file:..",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwindcss": "^4.0.6"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.19.0",
-    "@types/react": "^19.0.8",
-    "@types/react-dom": "^19.0.3",
-    "@vitejs/plugin-react": "^1.3.2",
-    "eslint": "^9.19.0",
-    "eslint-plugin-react": "^7.37.4",
-    "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.18",
-    "globals": "^15.14.0",
-    "vite": "^6.1.0"
->>>>>>> 1342fe2573a7b00321d7aaca583e3aa30f571559
   }
 }
