@@ -54,7 +54,7 @@ const Navbar = () => {
           {/* Center - Navigation Links (hidden on mobile) */}
           <div className="hidden md:flex space-x-6 lg:space-x-8">
             <Link
-              to="/collections/all?gender=Men"
+              to="/design-customization"
               className="text-white hover:text-blue-700 text-sm md:text-base font-medium uppercase whitespace-nowrap"
             >
               Design
@@ -143,7 +143,7 @@ const Navbar = () => {
           <div className="border-b border-gray-500 w-2/3 mb-4"></div>
           <nav className="space-y-4">
             <Link
-              to="/collections/all?gender=Men"
+              to="/design-customization"
               onClick={toggleNavDrawer}
               className="block text-white text-lg hover:text-blue-500"
             >

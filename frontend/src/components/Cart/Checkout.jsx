@@ -25,7 +25,7 @@ const Checkout = () => {
   const [selectedCourier, setSelectedCourier] = useState("standard");
 
   // VAT rate (15%)
-  const VAT_RATE = 0.15;
+  const VAT_RATE = 0.155;
 
   // Ensure cart is loaded before proceeding
   useEffect(() => {
@@ -72,23 +72,33 @@ const Checkout = () => {
   // Handle checkout creation
   const handleCreateCheckout = async (e) => {
     e.preventDefault();
-
+  
     const isExpressCourier = selectedCourier === "express";
     const isDeliveryValid = Object.values(shippingAddress).every(
       (field) => field.trim() !== ""
     );
-
+  
+    // Use dummy address for non-express courier
+    const finalShippingAddress = isExpressCourier ? shippingAddress : {
+      recipientName: "John Doe",  // Dummy name
+      address: "123 Dummy St",    // Dummy address
+      city: "Sample City",        // Dummy city
+      postalCode: "12345",        // Dummy postal code
+      country: "Country",         // Dummy country
+      phone: "+1 234 567 8901",   // Dummy phone
+    };
+  
     // Ensure a courier is selected
     if (!selectedCourier) {
       showToast("Please select a courier option.");
       return;
     }
-
+  
     if (isExpressCourier && !isDeliveryValid) {
       showToast("Please fill out all delivery fields for express shipping");
       return;
     }
-
+  
     if (cart?.products?.length > 0) {
       const totalPrice = calculateTotalPriceWithVATAndCourier();
       const res = await dispatch(
@@ -98,23 +108,24 @@ const Checkout = () => {
             quantity: product.quantity,
             printOptions: product.printOptions,
             dimensions: product.dimensions,
-            weight: product.weight, // Fixed: Replaced semicolon with colon
+            weight: product.weight,
             price: product.price,
             image: product.image,
             name: product.name,
           })),
-          shippingAddress: isExpressCourier ? shippingAddress : null,
+          shippingAddress: finalShippingAddress,
           paymentMethod: "Paypal",
           totalPrice,
           courierOption: selectedCourier,
         })
       );
-
+  
       if (res.payload?._id) {
         setCheckoutId(res.payload._id);
       }
     }
   };
+  
 
   const handleCourierChange = (option) => {
     setSelectedCourier(option);
@@ -382,7 +393,7 @@ const totalDimensions = calculateTotalDimensions();
                       {formatPrintOptions(product.printOptions)}
                     </ul>
                     {/* Add dimensions and weight */}
-                    <div className="mt-2">
+                    <div className="mt-2 hidden">
                       <p><strong>Dimensions:</strong> {product.dimensions ? `${product.dimensions.length} x ${product.dimensions.width} x ${product.dimensions.height}` : 'Not available'}</p>
                       <p><strong>Weight:</strong> {product.weight ? `${product.weight} kg` : 'Not available'}</p>
                     </div>
@@ -398,7 +409,7 @@ const totalDimensions = calculateTotalDimensions();
             <p>R{calculateSubtotal().toLocaleString()}</p>
           </div>
           <div className="flex justify-between items-center text-lg mb-4">
-            <p>VAT (15%)</p>
+            <p>Value-Added Tax (15%)</p>
             <p>+{formattedVAT}</p>
           </div>
           

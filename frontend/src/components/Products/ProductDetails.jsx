@@ -251,12 +251,12 @@ const ProductDetails = ({ productId }) => {
               <p className="text-gray-300 mb-4">{selectedProduct.description}</p>
 
               <div className="mb-4">
-  <p className="text-gray-300"><strong>Dimensions:</strong> 
+  <p className="text-gray-300 hidden"><strong>Dimensions:</strong> 
     {selectedProduct.dimensions 
       ? `${selectedProduct.dimensions.length} x ${selectedProduct.dimensions.width} x ${selectedProduct.dimensions.height} cm`
       : "N/A"}
   </p>
-  <p className="text-gray-300"><strong>Weight:</strong> 
+  <p className="text-gray-300 hidden"><strong>Weight:</strong> 
     {selectedProduct.weight ? `${selectedProduct.weight} kg` : "N/A"}
   </p>
 </div>
@@ -271,7 +271,7 @@ const ProductDetails = ({ productId }) => {
             
 
               <h1 className="text-2xl md:text-3xl text-white font-bold text-left mb-4">Job Summary</h1>
-              <h2 className="text-sm md:text-base text-white text-left mb-4">See the total pricing and checkout</h2>
+              <h2 className="text-sm md:text-base text-white text-left mb-4">See the total pricing including VAT and courier at checkout</h2>
                   
               <p className="text-xl text-green-500 mb-2">
                 R {dynamicPrice > 0 ? dynamicPrice.toFixed(2) : selectedProduct.price.toFixed(2)}

@@ -12,9 +12,9 @@ const subscribeRoute = require("./routes/subscribeRoute");
 const adminRoutes = require("./routes/adminRoutes");
 const productAdminRoutes = require("./routes/productAdminRoutes");
 const adminOrderRoutes = require("./routes/adminOrderRoutes");
+const { refreshToken } = require("./middleware/authMiddleware");
 
 const app = express();
-app.use(express.json());
 app.use(cors());
 
 // Increase the payload size limit to 50MB
@@ -42,6 +42,7 @@ app.use("/api/checkout", checkoutRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api", subscribeRoute);
+app.post('/refresh', refreshToken);  // Create the refresh token route
 
 // Admin
 app.use("/api/admin/users", adminRoutes);

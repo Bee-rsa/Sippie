@@ -158,10 +158,10 @@ router.post("/", async (req, res) => {
 // @desc Update product quantity in the cart for a guest or logged-in user
 // @access Public
 router.put("/", async (req, res) => {
-  const { productId, quantity, guestId, userId, printOptions, dimensions, weight,  price } = req.body;
+  const { productId, quantity, guestId, userId, printOptions, dimensions, weight, price } = req.body;
 
   console.log("Received payload from frontend:", { productId, quantity, guestId, userId, printOptions, dimensions, weight, price });
- 
+
   try {
     // Fetch the cart based on userId or guestId
     let cart = await getCart(userId, guestId);
@@ -174,40 +174,64 @@ router.put("/", async (req, res) => {
 
     // Normalize printOptions to match the structure in the cart
     const normalizedPrintOptions = {
-      sides: printOptions?.sides || cart.products[0].printOptions?.sides || [],
-      paperFinish: printOptions?.paperFinish || cart.products[0].printOptions?.paperFinish || [],
-      paperWeight: printOptions?.paperWeight || cart.products[0].printOptions?.paperWeight || [],
-      standardSizes: printOptions?.standardSizes || cart.products[0].printOptions?.standardSizes || [],
-      lamination: printOptions?.lamination || cart.products[0].printOptions?.lamination || [],
-      cornerType: printOptions?.cornerType || cart.products[0].printOptions?.cornerType || [],
-      layout: printOptions?.layout || cart.products[0].printOptions?.layout || [],
-      material: printOptions?.material || cart.products[0].printOptions?.material || [],
-      printingType: printOptions?.printingType || cart.products[0].printOptions?.printingType || [],
-      finishingOptions: printOptions?.finishingOptions || cart.products[0].printOptions?.finishingOptions || [],
-      printingPreferences: printOptions?.printingPreferences || cart.products[0].printOptions?.printingPreferences || [],
-      sizes: printOptions?.sizes || cart.products[0].printOptions?.sizes || [],
-      colors: printOptions?.colors || cart.products[0].printOptions?.colors || [],
-      gender: printOptions?.gender || cart.products[0].printOptions?.gender || [],
-      printBack: printOptions?.printBack || cart.products[0].printOptions?.printBack || [],
-      printFront: printOptions?.printFront || cart.products[0].printOptions?.printFront || [],
-      dimensions: {
-        length: printOptions?.dimensions?.length || cart.products[0].printOptions?.dimensions?.length || 0,
-        width: printOptions?.dimensions?.width || cart.products[0].printOptions?.dimensions?.width || 0,
-        height: printOptions?.dimensions?.height || cart.products[0].printOptions?.dimensions?.height || 0,
-      },
-      weight: printOptions?.weight || cart.products[0].printOptions?.weight || 0,
+      sides: printOptions?.sides || [],
+      paperFinish: printOptions?.paperFinish || [],
+      paperWeight: printOptions?.paperWeight || [],
+      standardSizes: printOptions?.standardSizes || [],
+      lamination: printOptions?.lamination || [],
+      cornerType: printOptions?.cornerType || [],
+      layout: printOptions?.layout || [],
+      material: printOptions?.material || [],
+      printingType: printOptions?.printingType || [],
+      finishingOptions: printOptions?.finishingOptions || [],
+      printingPreferences: printOptions?.printingPreferences || [],
+      sizes: printOptions?.sizes || [],
+      colors: printOptions?.colors || [],
+      gender: printOptions?.gender || [],
+      printBack: printOptions?.printBack || [],
+      printFront: printOptions?.printFront || [],
     };
 
     console.log("Normalized printOptions:", normalizedPrintOptions);
 
     // Find the product in the cart
-    const productIndex = cart.products.findIndex(
-      (p) =>
-        p.productId.toString() === productId.toString() && // Ensure productId matches
-        JSON.stringify(p.printOptions) === JSON.stringify(normalizedPrintOptions) // Ensure printOptions match
-    );
+    const productIndex = cart.products.findIndex((p) => {
+      const isProductMatch = p.productId.toString() === productId.toString();
+
+      // Compare only relevant printOptions fields
+      const isPrintOptionsMatch =
+        JSON.stringify({
+          sides: p.printOptions?.sides || [],
+          paperFinish: p.printOptions?.paperFinish || [],
+          paperWeight: p.printOptions?.paperWeight || [],
+          standardSizes: p.printOptions?.standardSizes || [],
+          lamination: p.printOptions?.lamination || [],
+          cornerType: p.printOptions?.cornerType || [],
+          layout: p.printOptions?.layout || [],
+          material: p.printOptions?.material || [],
+          printingType: p.printOptions?.printingType || [],
+          finishingOptions: p.printOptions?.finishingOptions || [],
+          printingPreferences: p.printOptions?.printingPreferences || [],
+          sizes: p.printOptions?.sizes || [],
+          colors: p.printOptions?.colors || [],
+          gender: p.printOptions?.gender || [],
+          printBack: p.printOptions?.printBack || [],
+          printFront: p.printOptions?.printFront || [],
+        }) === JSON.stringify(normalizedPrintOptions);
+
+      console.log("Checking product:", {
+        productId: p.productId.toString(),
+        isProductMatch,
+        printOptions: p.printOptions,
+        isPrintOptionsMatch,
+      });
+
+      return isProductMatch && isPrintOptionsMatch;
+    });
 
     if (productIndex > -1) {
+      console.log("Product found in cart at index:", productIndex);
+
       // Update quantity and price
       if (quantity > 0) {
         cart.products[productIndex].quantity = quantity;

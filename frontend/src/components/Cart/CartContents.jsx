@@ -10,7 +10,7 @@ const CartContents = ({ cart, userId, guestId }) => {
   const dispatch = useDispatch();
 
   // Helper function to normalize printOptions
-  const normalizePrintOptions = (printOptions) => {
+  const normalizePrintOptions = (printOptions = {}) => {
     return {
       sides: printOptions.sides || [],
       paperFinish: printOptions.paperFinish || [],
@@ -34,7 +34,7 @@ const CartContents = ({ cart, userId, guestId }) => {
 
   const handleAddToCart = (productId, delta, quantity, dimensions, weight, printOptions, price) => {
     const newQuantity = quantity + delta;
-    const normalizedPrintOptions = normalizePrintOptions(printOptions);
+    const normalizedPrintOptions = normalizePrintOptions(printOptions || {}); // Ensure printOptions is always an object
 
     if (newQuantity >= 1) {
       // Update the quantity if it's greater than or equal to 1
@@ -52,14 +52,15 @@ const CartContents = ({ cart, userId, guestId }) => {
       );
     } else {
       // If the quantity drops to 0, remove the product from the cart
-      handleRemoveFromCart(productId, normalizedPrintOptions, price);
+      handleRemoveFromCart(productId, dimensions, weight, normalizedPrintOptions, price);
     }
   };
 
   const handleRemoveFromCart = (productId, dimensions, weight, printOptions, price) => {
+    const normalizedPrintOptions = normalizePrintOptions(printOptions || {}); // Ensure printOptions is always an object
     const cartData = {
       productId,
-      printOptions,
+      printOptions: normalizedPrintOptions,
       dimensions,
       weight,
       price: parseFloat(price),
@@ -73,8 +74,8 @@ const CartContents = ({ cart, userId, guestId }) => {
     dispatch(removeFromCart(cartData));
   };
 
-  const formatPrintOptions = (printOptions) => {
-    if (!printOptions || typeof printOptions !== "object") return "No options selected";
+  const formatPrintOptions = (printOptions = {}) => {
+    if (Object.keys(printOptions).length === 0) return "No options selected";
 
     return Object.entries(printOptions)
       .filter(([, value]) => {
@@ -103,8 +104,8 @@ const CartContents = ({ cart, userId, guestId }) => {
       )); // Display each option in a list
   };
 
-  const generateKey = (productId, printOptions) => {
-    if (!printOptions || Object.keys(printOptions).length === 0) {
+  const generateKey = (productId, printOptions = {}) => {
+    if (Object.keys(printOptions).length === 0) {
       return `${productId}-no-options`;
     }
     const sortedOptions = Object.keys(printOptions)
@@ -117,7 +118,7 @@ const CartContents = ({ cart, userId, guestId }) => {
   };
 
   const groupedProducts = cart.products.reduce((acc, product) => {
-    const key = generateKey(product.productId, product.printOptions);
+    const key = generateKey(product.productId, product.printOptions || {}); // Ensure printOptions is always an object
     if (!acc[key]) {
       acc[key] = { ...product, variants: [] };
     }
@@ -169,7 +170,9 @@ const CartContents = ({ cart, userId, guestId }) => {
                         productId,
                         -1,
                         totalQuantity,
-                        printOptions,
+                        group.dimensions,
+                        group.weight,
+                        printOptions || {}, // Ensure printOptions is always an object
                         price
                       )
                     }
@@ -184,7 +187,9 @@ const CartContents = ({ cart, userId, guestId }) => {
                         productId,
                         1,
                         totalQuantity,
-                        printOptions,
+                        group.dimensions,
+                        group.weight,
+                        printOptions || {}, // Ensure printOptions is always an object
                         price
                       )
                     }
@@ -198,19 +203,24 @@ const CartContents = ({ cart, userId, guestId }) => {
 
             {/* Price and Delete Button */}
             <div className="flex justify-end flex-col items-end space-y-2 mt-4 sm:mt-0 ml-auto">
-  <p className="text-lg font-semibold text-gray-800">
-    R {totalPrice ? totalPrice.toLocaleString() : "0.00"}
-  </p>
-  <button
-    onClick={() =>
-      handleRemoveFromCart(productId, printOptions, price)
-    }
-    className="p-2 rounded-lg hover:bg-red-50 transition-colors"
-  >
-    <RiDeleteBin3Line className="h-5 w-5 justify-end text-red-600" />
-  </button>
-</div>
-
+              <p className="text-lg font-semibold text-gray-800">
+                R {totalPrice ? totalPrice.toLocaleString() : "0.00"}
+              </p>
+              <button
+                onClick={() =>
+                  handleRemoveFromCart(
+                    productId,
+                    group.dimensions,
+                    group.weight,
+                    printOptions || {}, // Ensure printOptions is always an object
+                    price
+                  )
+                }
+                className="p-2 rounded-lg hover:bg-red-50 transition-colors"
+              >
+                <RiDeleteBin3Line className="h-5 w-5 justify-end text-red-600" />
+              </button>
+            </div>
           </div>
         );
       })}

@@ -43,28 +43,35 @@ router.get("/:id", protect, async (req, res) => {
 });
 
 // @route POST /api/orders
-// @desc Create a new order with printOptions
+// @desc Create a new order with or without a shipping address
 // @access Private
 router.post("/", protect, async (req, res) => {
   try {
-    const order = new Order({
+    // Create the order object with the provided data
+    const orderData = {
       user: req.user._id,
       orderItems: req.body.orderItems,
-      shippingAddress: {
-        recipientName: req.body.recipientName,
-        phone: req.body.phone,
-        address: req.body.address,
-        city: req.body.city,
-        postalCode: req.body.postalCode,
-        country: req.body.country,
-      },
       paymentMethod: req.body.paymentMethod,
       totalPrice: req.body.totalPrice,
       paymentStatus: "pending",
       status: "Processing",
-      // Adding printOptions field to the order
       printOptions: req.body.printOptions || {}, // default to empty object if not provided
-    });
+    };
+
+    // Include shippingAddress only if provided
+    if (req.body.shippingAddress) {
+      orderData.shippingAddress = {
+        recipientName: req.body.shippingAddress.recipientName,
+        phone: req.body.shippingAddress.phone,
+        address: req.body.shippingAddress.address,
+        city: req.body.shippingAddress.city,
+        postalCode: req.body.shippingAddress.postalCode,
+        country: req.body.shippingAddress.country,
+      };
+    }
+
+    // Create the new order with the prepared data
+    const order = new Order(orderData);
 
     // Save the new order to the database
     await order.save();
@@ -76,5 +83,6 @@ router.post("/", protect, async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 });
+
 
 module.exports = router;

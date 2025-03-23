@@ -8,6 +8,28 @@ const OrderConfirmationPage = () => {
   const navigate = useNavigate();
   const { checkout } = useSelector((state) => state.checkout);
 
+  // Dummy address structure
+  const dummyAddress = {
+    recipientName: "John Doe",  // Dummy name
+    address: "123 Dummy St",    // Dummy address
+    city: "Sample City",        // Dummy city
+    postalCode: "12345",        // Dummy postal code
+    country: "Country",         // Dummy country
+    phone: "+1 234 567 8901",   // Dummy phone
+  };
+
+  // Check if the shipping address is a dummy address
+  const isDummyAddress = (shippingAddress) => {
+    return (
+      shippingAddress.recipientName === dummyAddress.recipientName &&
+      shippingAddress.address === dummyAddress.address &&
+      shippingAddress.city === dummyAddress.city &&
+      shippingAddress.postalCode === dummyAddress.postalCode &&
+      shippingAddress.country === dummyAddress.country &&
+      shippingAddress.phone === dummyAddress.phone
+    );
+  };
+
   // Clear the cart when the order is confirmed
   useEffect(() => {
     if (checkout && checkout._id) {
@@ -69,18 +91,18 @@ const OrderConfirmationPage = () => {
 
         {checkout && (
           <div className="p-4 sm:p-6 rounded-lg bg-white border">
-          {/* Added email instruction here */}
-          <div className="mb-4 bg-yellow-100 p-3 rounded-lg">
-            <p className="text-sm sm:text-base text-gray-700">
-              Please email all relevant images to:{" "}
-              <a 
-                href="mailto:vanderholtzpromotions@gmail.com"
-                className="text-green-600 hover:text-green-800 underline"
-              >
-                vanderholtzpromotions@gmail.com
-              </a>
-            </p>
-          </div>
+            {/* Added email instruction here */}
+            <div className="mb-4 bg-yellow-100 p-3 rounded-lg">
+              <p className="text-sm sm:text-base text-gray-700">
+                Please email all relevant images to:{" "}
+                <a
+                  href="mailto:vanderholtzpromotions@gmail.com"
+                  className="text-green-600 hover:text-green-800 underline"
+                >
+                  vanderholtzpromotions@gmail.com
+                </a>
+              </p>
+            </div>
             <div className="flex flex-col sm:flex-row justify-between mb-10 sm:mb-20">
               {/* Order Id and Date */}
               <div className="mb-4 sm:mb-0">
@@ -155,13 +177,21 @@ const OrderConfirmationPage = () => {
                 <h4 className="text-md sm:text-lg text-black font-semibold mb-2">
                   Delivery
                 </h4>
-                <p className="text-sm sm:text-base text-gray-600">
-                  {checkout.shippingAddress?.address}
-                </p>
-                <p className="text-sm sm:text-base text-gray-600">
-                  {checkout.shippingAddress?.city},{" "}
-                  {checkout.shippingAddress?.country}
-                </p>
+                {checkout.shippingAddress && isDummyAddress(checkout.shippingAddress) ? (
+                  <p className="text-sm sm:text-base text-gray-600">
+                    Pick up from store
+                  </p>
+                ) : (
+                  <>
+                    <p className="text-sm sm:text-base text-gray-600">
+                      {checkout.shippingAddress?.address}
+                    </p>
+                    <p className="text-sm sm:text-base text-gray-600">
+                      {checkout.shippingAddress?.city},{" "}
+                      {checkout.shippingAddress?.country}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           </div>
