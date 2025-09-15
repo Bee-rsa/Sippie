@@ -21,7 +21,6 @@ import ProductForm from "./components/Admin/ProductForm";
 import AboutUs from "./pages/AboutUs";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
-import DesignCustomization from "./pages/DesignCustomization";
 import ContactPage from "./pages/ContactPage";
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -40,7 +39,6 @@ const App = () => {
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-          <Route path="/design-customization" element={<DesignCustomization />} />
           <Route path="/contact-page" element={<ContactPage />} />
           <Route path="collections/:collection" element={<CollectionPage />} />
           <Route path="product/:id" element={<ProductDetails />} />

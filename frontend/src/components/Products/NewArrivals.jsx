@@ -1,145 +1,107 @@
-import { useEffect, useRef, useState } from "react";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { useState } from "react";
+import Image1 from "../../assets/Work From Home Freelance Blog Banner_20250907_204209_0000.png";
+import Image2 from "../../assets/Work From Home Freelance Blog Banner_20250907_204055_0000.png";
+import Image3 from "../../assets/Work From Home Freelance Blog Banner_20250907_204136_0000.png";
+import Image4 from "../../assets/Work From Home Freelance Blog Banner_20250907_203939_0000.png";
 
 const NewArrivals = () => {
-  const scrollRef = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(false);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const images = [
+    { 
+      src: Image1, 
+      header: "Strawberry Flavour:",
+      description: "A refreshing burst of sweet and juicy strawberries, perfect for an energizing pick-me-up.",
+      glow: "hover:shadow-red-400"
+    },
+    { 
+      src: Image2, 
+      header: "Orange Flavour:",
+      description: "Packed with zesty citrus goodness, this tangy flavor delivers a vibrant boost of energy and freshness.",
+      glow: "hover:shadow-orange-400"
+    },
+    { 
+      src: Image3, 
+      header: "Grape Flavour:",
+      description: "Bold and delicious, this grape blend gives you a smooth, fruity taste with a satisfying kick.",
+      glow: "hover:shadow-purple-400"
+    },
+    { 
+      src: Image4, 
+      header: "Green Tea Zen:",
+      description: "A calming mix of green tea essence and natural energy, perfect for focus, balance, and clarity.",
+      glow: "hover:shadow-green-400"
+    },
+  ];
 
-  const [newArrivals, setNewArrivals] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(null);
 
-  useEffect(() => {
-    const fetchNewArrivals = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/products/new-arrivals`
-        );
-        setNewArrivals(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchNewArrivals();
-  }, []);
-
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setStartX(e.pageX - scrollRef.current.offsetLeft);
-    setScrollLeft(scrollRef.current.scrollLeft);
+  const toggleDescription = (index) => {
+    setActiveIndex(activeIndex === index ? null : index); // toggle
   };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = x - startX;
-    scrollRef.current.scrollLeft = scrollLeft - walk;
-  };
-
-  const handleMouseUpOrLeave = () => {
-    setIsDragging(false);
-  };
-
-  const scroll = (direction) => {
-    const scrollAmount = direction === "left" ? -300 : 300;
-    scrollRef.current.scrollBy({ left: scrollAmount, behaviour: "smooth" });
-  };
-
-  // Update Scroll Buttons
-  const updateScrollButtons = () => {
-    const container = scrollRef.current;
-
-    if (container) {
-      const leftScroll = container.scrollLeft;
-      const rightScrollable =
-        container.scrollWidth > leftScroll + container.clientWidth;
-
-      setCanScrollLeft(leftScroll > 0);
-      setCanScrollRight(rightScrollable);
-    }
-  };
-
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (container) {
-      container.addEventListener("scroll", updateScrollButtons);
-      updateScrollButtons();
-      return () => container.removeEventListener("scroll", updateScrollButtons);
-    }
-  }, [newArrivals]);
 
   return (
-    <section className="py-16 px-4 lg:px-0">
-      <div className="container mx-auto text-center mb-10 relative">
-        <h2 className="text-3xl font-bold mb-4">Explore New Arrivals</h2>
-        <p className="text-lg text-gray-600 mb-8">
-          Discover the latest styles straight off the runway, freshly added to
-          keep your wardrobe on the cutting edge of fashion.
-        </p>
-
-        {/* Scroll Buttons */}
-        <div className="absolute right-0 bottom-[-30px] flex space-x-2">
-          <button
-            onClick={() => scroll("left")}
-            disabled={!canScrollLeft}
-            className={`p-2 rounded border ${
-              canScrollLeft
-                ? "bg-white text-black"
-                : "bg-gray-200 text-gray-400 cursor-not-allowed"
-            }`}
-          >
-            <FiChevronLeft className="text-2xl" />
-          </button>
-          <button
-            onClick={() => scroll("right")}
-            className={`p-2 rounded border ${
-              canScrollRight
-                ? "bg-white text-black"
-                : "bg-gray-200 text-gray-400 cursor-not-allowed"
-            }`}
-          >
-            <FiChevronRight className="text-2xl" />
-          </button>
-        </div>
-      </div>
-
-      {/* Scrollable Content */}
-      <div
-        ref={scrollRef}
-        className={`container mx-auto overflow-x-scroll flex space-x-6 relative ${
-          isDragging ? "cursor-grabbing" : "cursor-grab"
-        }`}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUpOrLeave}
-        onMouseLeave={handleMouseUpOrLeave}
-      >
-        {newArrivals.map((product) => (
+    <section
+      className="py-16 px-4 lg:px-0"
+      style={{
+        background: "black",
+      }}
+    >
+      <div className="container mx-auto flex justify-center gap-6">
+        {images.map((img, index) => (
           <div
-            key={product._id}
-            className="min-w-[100%] sm:min-w-[50%] lg:min-w-[30%] relative"
+            key={index}
+            className="flex items-start gap-4 transition-all duration-300 cursor-pointer"
+            onClick={() => toggleDescription(index)}
           >
-            <img
-              src={product.images[0]?.url}
-              alt={product.images[0]?.altText || product.name}
-              className="w-full h-[500px] object-cover rounded-lg"
-              draggable="false"
-            />
-            <div className="absolute bottom-0 left-0 right-0 bg-opacity-50 backdrop-blur-md text-white p-4 rounded-b-lg">
-              <Link to={`/product/${product._id}`} className="block">
-                <h4 className="font-medium">{product.name}</h4>
-                <p className="mt-1">${product.price}</p>
-              </Link>
+            {/* Image */}
+            <div className="w-[200px]">
+              <img
+                src={img.src}
+                alt={`New Arrival ${index + 1}`}
+                className={`w-full h-[300px] object-cover rounded-lg transition-all duration-300 hover:-translate-y-8 shadow-none hover:shadow-xl ${img.glow}`}
+                draggable="false"
+              />
             </div>
+
+            {/* Description appears to the right */}
+            {/* Description appears to the right */}
+{activeIndex === index && (
+  <div className="p-4 bg-black text-white rounded-lg w-[300px]">
+    {/* Header with outline style */}
+    <h3
+      className={`text-3xl font-bold mb-2 pb-1 border-b-4 whitespace-nowrap ${
+        index === 0
+          ? "border-red-400"
+          : index === 1
+          ? "border-orange-400"
+          : index === 2
+          ? "border-purple-400"
+          : "border-green-400"
+      }`}
+      style={{
+        color: "transparent",
+        WebkitTextStrokeWidth: "1px",
+        WebkitTextStrokeColor:
+          index === 0
+            ? "rgb(248 113 113)" // red-400
+            : index === 1
+            ? "rgb(251 191 36)" // orange-400
+            : index === 2
+            ? "rgb(168 85 247)" // purple-400
+            : "rgb(34 197 94)", // green-400
+      }}
+    >
+      {img.header}
+    </h3>
+    {/* Description */}
+    <p className="text-sm text-gray-300">{img.description}</p>
+  </div>
+)}
+
           </div>
         ))}
       </div>
     </section>
   );
 };
+
 export default NewArrivals;

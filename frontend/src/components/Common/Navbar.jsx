@@ -5,7 +5,7 @@ import {
   HiBars3BottomRight,
   HiOutlineLockClosed,
 } from "react-icons/hi2";
-import LogoImg from "../../assets/VDH LOGO.png";
+import LogoImg from "../../assets/Sippie Logo.png";
 import SearchBar from "./SearchBar";
 import CartDrawer from "../Layout/CartDrawer";
 import { useState } from "react";
@@ -40,7 +40,7 @@ const Navbar = () => {
     <>
       {/* Main content wrapper */}
       <div>
-        <nav className="container w-full bg-black max-w-none flex items-center justify-between py-4 px-4 sm:px-6">
+        <nav className="container w-full bg-blue max-w-none flex items-center justify-between py-4 px-4 sm:px-6">
           {/* Left - Logo */}
           <div>
             <Link to="/" className="flex items-center">
@@ -51,52 +51,20 @@ const Navbar = () => {
               />
             </Link>
           </div>
-          {/* Center - Navigation Links (hidden on mobile) */}
-          <div className="hidden md:flex space-x-6 lg:space-x-8">
-            <Link
-              to="/design-customization"
-              className="text-white hover:text-blue-700 text-sm md:text-base font-medium uppercase whitespace-nowrap"
-            >
-              Design
-            </Link>
-            <Link
-              to="/collections/all?category=Print"
-              className="text-white hover:text-pink-500 text-sm md:text-base font-medium uppercase whitespace-nowrap"
-            >
-              Print
-            </Link>
-            <Link
-              to="/collections/all?category=Signs"
-              className="text-white hover:text-yellow-500 text-sm md:text-base font-medium uppercase whitespace-nowrap"
-            >
-              Signs
-            </Link>
-            <Link
-              to="/collections/all?category=Branding"
-              className="text-white hover:text-red-500 text-sm md:text-base font-medium uppercase whitespace-nowrap"
-            >
-              Branding
-            </Link>
-            <Link
-              to="/collections/all?category=Paint"
-              className="text-white hover:text-lime-500 text-sm md:text-base font-medium uppercase whitespace-nowrap"
-            >
-              Paint
-            </Link>
-          </div>
+          
           {/* Right - Icons */}
           <div className="flex items-center space-x-4 md:space-x-6">
             {user && user.role === "admin" && (
               <Link
                 to="/admin"
-                className="hidden md:flex items-center justify-center bg-green-500 px-3 py-1 rounded text-sm md:text-base text-white hover:bg-green-600 transition-colors whitespace-nowrap"
+                className="hidden md:flex items-center justify-center bg-blue px-3 py-1 rounded text-sm md:text-base text-white hover:bg-blue transition-colors whitespace-nowrap"
               >
                 <HiOutlineLockClosed className="h-4 w-4 mr-1" />
                 <span>Admin</span>
               </Link>
             )}
             <Link to="/profile" className="hover:text-green-900">
-              <HiOutlineUser className="h-6 w-6 text-green-500" />
+              <HiOutlineUser className="h-6 w-6 text-white" />
             </Link>
             <button onClick={toggleCartDrawer} className="relative hover:text-black">
               <HiOutlineShoppingBag className="h-6 w-6 text-white" />
@@ -111,7 +79,7 @@ const Navbar = () => {
               <SearchBar />
             </div>
             <button onClick={toggleNavDrawer} className="md:hidden">
-              <HiBars3BottomRight className="h-6 w-6 text-red-900" />
+              <HiBars3BottomRight className="h-6 w-6 text-white" />
             </button>
           </div>
         </nav>
@@ -122,14 +90,14 @@ const Navbar = () => {
       {/* Backdrop for mobile drawer */}
       {navDrawerOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          className="fixed inset-0 bg-white bg-opacity-50 z-40"
           onClick={toggleNavDrawer}
         />
       )}
 
       {/* Mobile Navigation Drawer */}
       <div
-        className={`fixed top-0 left-0 w-3/4 sm:w-1/2 md:w-1/3 h-full bg-black shadow-lg transform transition-transform duration-300 z-50 overflow-y-auto ${
+        className={`fixed top-0 left-0 w-3/4 sm:w-1/2 md:w-1/3 h-full bg-white shadow-lg transform transition-transform duration-300 z-50 overflow-y-auto ${
           navDrawerOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >

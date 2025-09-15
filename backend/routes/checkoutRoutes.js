@@ -214,7 +214,7 @@ router.put("/:id/pay", protect, async (req, res) => {
             <p>Date: <strong>${collectionDate.toDateString()}</strong></p>
           `;
 
-          await sendEmail("cleavermedia@outlook.com", email3Subject, "", email3Html);
+          await sendEmail("support@thecourierguy.co.za", email3Subject, "", email3Html);
         }
       } else {
         console.log("Shipping address is missing. Email not sent.");
