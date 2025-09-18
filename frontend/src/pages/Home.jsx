@@ -86,7 +86,7 @@ const Home = () => {
       </section>
 
       {/* Map & Stations Section */}
-      <section className="relative bg-gradient-to-r from-blue-50 via-white to-blue-50 py-16 px-4 overflow-hidden">
+      <section className="relative py-16 px-4 overflow-hidden multi-color-gradient">
   {/* Decorative abstract shapes */}
   <div className="absolute -top-10 -left-10 w-72 h-72 bg-blue-100 rounded-full opacity-40 filter blur-3xl animate-pulse"></div>
   <div className="absolute -bottom-10 -right-10 w-96 h-96 bg-blue-200 rounded-full opacity-30 filter blur-3xl animate-pulse"></div>
@@ -95,10 +95,10 @@ const Home = () => {
 
     {/* Header */}
     <div className="text-center md:text-left mb-10">
-      <h2 className="text-4xl sm:text-5xl lg:pl-72 lg:pr-72 font-extrabold text-gray-900 mb-4 leading-tight">
+      <h2 className="text-4xl sm:text-5xl text-center font-extrabold text-gray-900 mb-4 leading-tight">
         Stations where you can get <span className="text-blue-600">Sippie Energy Drink</span>
       </h2>
-      <p className="text-gray-700 lg:pl-72 lg:pr-72 text-lg sm:text-xl">
+      <p className="text-gray-700 lg:pl-80 lg:pr-80 text-lg sm:text-xl">
         Find Sippie at convenient locations across Durban campuses. Grab your energy boost and keep moving with ease!
       </p>
     </div>
@@ -140,6 +140,8 @@ const Home = () => {
     </div>
   </div>
 </section>
+
+
 
       {/* Why Choose Us Section */}
       <section className="bg-white p-4 sm:p-6 mb-8 w-full max-w-full">
