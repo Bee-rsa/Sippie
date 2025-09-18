@@ -58,7 +58,7 @@ const Hero = () => {
         {/* Mobile Text */}
         <div
           ref={mobileTextRef}
-          className={`md:hidden flex flex-col justify-center text-center text-gray-900 p-6 ml-16 mb-56 -mt-12 transform transition-transform duration-700 ease-out
+          className={`md:hidden flex flex-col justify-center text-center text-gray-900 p-6 mb-56 -mt-12 transform transition-transform duration-700 ease-out
             ${isVisible ? "translate-x-0 opacity-100" : "-translate-x-20 opacity-0"}`}
         >
           <div className="inline-block">
