@@ -22,7 +22,6 @@ const Home = () => {
   const [bestSellerProduct, setBestSellerProduct] = useState(null);
 
   useEffect(() => {
-    // Fetch products for a specific collection
     dispatch(
       fetchProductsByFilters({
         gender: "Women",
@@ -31,7 +30,6 @@ const Home = () => {
       })
     );
 
-    // Fetch best seller product
     const fetchBestSeller = async () => {
       try {
         const response = await axios.get(
@@ -46,7 +44,7 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className="w-full max-w-full overflow-x-hidden">
       {/* Hero Section */}
       <Hero />
 
@@ -64,118 +62,66 @@ const Home = () => {
       )}
 
       {/* Product Grid */}
-      <div className="container mx-auto mt-16 px-4">
+      <div className="container mx-auto mt-16 px-4 max-w-full">
         <ProductGrid products={products} loading={loading} error={error} />
       </div>
 
-      {/* About / Featured Collection */}
-
-      {/* Map & Stations Section */}
-<section className="bg-white py-12 px-6 w-full">
-  <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-
-    {/* Satellite Map Image */}
-    <div className="w-full h-[400px]">
-      <img
-        src="https://maps.googleapis.com/maps/api/staticmap?center=Durban+University+of+Technology,Durban,South+Africa&zoom=15&size=600x400&maptype=satellite&key=YOUR_API_KEY"
-        alt="DUT Satellite Map"
-        className="w-full h-full object-cover rounded-lg shadow-lg"
-      />
-    </div>
-
-    {/* Stations List */}
-    <div className="flex flex-col justify-center">
-      <h2 className="text-4xl sm:text-5xl font-bold text-black mb-6">
-        Stations where you can get Sippie Energy Drink:
-      </h2>
-      <ul className="list-disc list-inside space-y-3 text-lg font-poppins text-gray-700">
-        <li>Steve Biko Campus – Student Centre</li>
-        <li>Ritson Campus – Cafeteria</li>
-        <li>Mansfield Hall – Entrance Kiosk</li>
-        <li>ML Sultan Campus – Food Court</li>
-        <li>Indumiso Campus – Main Hall</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-
-     {/* Merchandise */}
-<section className="bg-white -mt-8 p-6 mb-8 w-full">
-  <h2 className="text-center text-6xl sm:text-5xl font-bold text-black mb-12">
-    Pre-order Merchandise!
-  </h2>
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-    {[
-      { 
-        img: step4Image, 
-      },
-      { 
-        img: step5Image, 
-      },
-      { 
-        img: step6Image, 
-      },
-      { 
-        img: step7Image, 
-      },
-    ].map((step, idx) => (
-      <div key={idx} className="flex flex-col items-start p-6 border rounded-lg bg-gray-50 w-full h-full">
-        <img 
-          src={step.img} 
-          alt={`Product ${idx + 1}`} 
-          className="w-full h-auto object-contain mb-4" 
-        />
-        <h3 
-          className="font-bold text-xl font-poppins mb-2"
-          style={{
-            color: 'transparent',
-            WebkitTextStroke: `1.5px ${step.color}`,
-          }}
-        >
-          {step.title}
-        </h3>
-        <p className="text-left mb-4 font-poppins">{step.desc}</p>
-      </div>
-    ))}
-  </div>
-</section>
-
-
+      {/* Merchandise Section */}
+      <section className="bg-white -mt-8 p-4 sm:p-6 mb-8 w-full max-w-full">
+        <h2 className="text-center text-4xl sm:text-5xl font-bold text-black mb-8">
+          Pre-order Merchandise!
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          {[step4Image, step5Image, step6Image, step7Image].map((img, idx) => (
+            <div key={idx} className="flex flex-col items-center p-4 border rounded-lg bg-gray-50 w-full">
+              <img 
+                src={img} 
+                alt={`Product ${idx + 1}`} 
+                className="w-full h-auto object-contain mb-4"
+              />
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* Why Choose Us Section */}
-      <section className="bg-white p-6 mb-8 w-full">
-      <h2 className="text-center text-4xl sm:text-5xl font-bold text-black mb-12">
-  Want To Join The Delivery Club?
-</h2>
-<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-  {[
-    { 
-      img: step1Image, 
-      title: 'Register', 
-      desc: 'Sign up with Sippie by providing your email and creating a secure password. Start managing your deliveries efficiently and access all the tools our platform offers.' 
-    },
-    { 
-      img: step2Image, 
-      title: 'Accept Orders', 
-      desc: 'Browse available delivery requests and accept the ones that fit your schedule. Get all the details you need, including pickup locations and package info.' 
-    },
-    { 
-      img: step3Image, 
-      title: 'Deliver Sippie', 
-      desc: 'Pick up the package, complete the delivery, and update the status in real-time. Enjoy a seamless process from start to finish with Sippie’s platform.' 
-    },
-  ].map((step, idx) => (
-    <div key={idx} className="flex flex-col items-start p-6 border rounded-lg bg-gray-50 w-full h-full">
-      <img src={step.img} alt={`Step ${idx + 1}`} className="w-full h-60 object-cover mb-4" />
-      <h3 className="font-semibold text-xl text-custom-blue font-poppins">
-        Step {idx + 1}: {step.title}
-      </h3>
-      <p className="text-left mb-4 font-poppins">{step.desc}</p>
-    </div>
-  ))}
-</div>
-</section>
+      <section className="bg-white p-4 sm:p-6 mb-8 w-full max-w-full">
+        <h2 className="text-center text-4xl sm:text-5xl font-bold text-black mb-8">
+          Want To Join The Delivery Club?
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {[step1Image, step2Image, step3Image].map((img, idx) => (
+            <div key={idx} className="flex flex-col items-center p-4 border rounded-lg bg-gray-50 w-full">
+              <img src={img} alt={`Step ${idx + 1}`} className="w-full h-auto object-contain mb-4" />
+              <h3 className="font-semibold text-xl text-custom-blue mb-2">Step {idx + 1}</h3>
+              <p className="text-center text-gray-700 text-sm">{/* description here */}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Map Section */}
+      <section className="bg-white py-6 px-4 w-full max-w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="w-full h-64 sm:h-80 md:h-96">
+            <img
+              src="https://maps.googleapis.com/maps/api/staticmap?center=Durban+University+of+Technology,Durban,South+Africa&zoom=15&size=600x400&maptype=satellite&key=YOUR_API_KEY"
+              alt="DUT Satellite Map"
+              className="w-full h-full object-cover rounded-lg shadow-lg"
+            />
+          </div>
+          <div className="flex flex-col justify-center">
+            <h2 className="text-2xl sm:text-4xl font-bold text-black mb-4">Stations where you can get Sippie Energy Drink:</h2>
+            <ul className="list-disc list-inside space-y-2 text-sm sm:text-base text-gray-700">
+              <li>Steve Biko Campus – Student Centre</li>
+              <li>Ritson Campus – Cafeteria</li>
+              <li>Mansfield Hall – Entrance Kiosk</li>
+              <li>ML Sultan Campus – Food Court</li>
+              <li>Indumiso Campus – Main Hall</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
       {/* Features Section */}
       <FeaturesSection />

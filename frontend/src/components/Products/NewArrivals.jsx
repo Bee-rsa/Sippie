@@ -95,55 +95,58 @@ const NewArrivals = () => {
         ))}
       </div>
 
-      {/* Mobile Slider */}
-      <div className="md:hidden container mx-auto relative flex flex-col items-center w-full">
-        <div className="w-full flex justify-center">
-  <div className="w-full max-w-xs sm:max-w-sm">
-    <img
-      src={images[mobileIndex].src}
-      alt={`New Arrival ${mobileIndex + 1}`}
-      className={`w-full h-auto object-contain rounded-lg transition-all duration-300 shadow-xl ${images[mobileIndex].glow}`}
-      draggable="false"
-    />
-  </div>
-          <div className="p-4 bg-black text-white rounded-lg mt-4 text-center">
-            <h3
-              className="text-2xl font-bold mb-2 border-b-4 inline-block"
-              style={{
-                color: "transparent",
-                WebkitTextStrokeWidth: "1px",
-                WebkitTextStrokeColor:
-                  mobileIndex === 0
-                    ? "rgb(248 113 113)"
-                    : mobileIndex === 1
-                    ? "rgb(251 191 36)"
-                    : mobileIndex === 2
-                    ? "rgb(168 85 247)"
-                    : "rgb(34 197 94)",
-              }}
-            >
-              {images[mobileIndex].header}
-            </h3>
-            <p className="text-sm mt-2 text-gray-300">{images[mobileIndex].description}</p>
-          </div>
-        </div>
+{/* Mobile Slider */}
+<div className="md:hidden container mx-auto relative flex flex-col items-center w-full">
+  <div className="w-full flex justify-center">
+    {/* Image wrapper with max width = 100% of screen */}
+    <div className="w-full max-w-full px-4">
+      <img
+        src={images[mobileIndex].src}
+        alt={`New Arrival ${mobileIndex + 1}`}
+        className={`w-full h-auto object-contain rounded-lg transition-all duration-300 shadow-xl ${images[mobileIndex].glow}`}
+        draggable="false"
+      />
+    </div>
 
-        {/* Navigation Buttons */}
-        <div className="flex justify-between w-full mt-4 px-4">
-          <button
-            onClick={prevImage}
-            className="text-white bg-gray-700 px-4 py-2 rounded hover:bg-gray-600 transition"
-          >
-            Prev
-          </button>
-          <button
-            onClick={nextImage}
-            className="text-white bg-gray-700 px-4 py-2 rounded hover:bg-gray-600 transition"
-          >
-            Next
-          </button>
-        </div>
-      </div>
+    <div className="p-4 bg-black text-white rounded-lg mt-4 text-center w-full px-4">
+      <h3
+        className="text-2xl font-bold mb-2 border-b-4 inline-block"
+        style={{
+          color: "transparent",
+          WebkitTextStrokeWidth: "1px",
+          WebkitTextStrokeColor:
+            mobileIndex === 0
+              ? "rgb(248 113 113)"
+              : mobileIndex === 1
+              ? "rgb(251 191 36)"
+              : mobileIndex === 2
+              ? "rgb(168 85 247)"
+              : "rgb(34 197 94)",
+        }}
+      >
+        {images[mobileIndex].header}
+      </h3>
+      <p className="text-sm mt-2 text-gray-300">{images[mobileIndex].description}</p>
+    </div>
+  </div>
+
+  {/* Navigation Buttons */}
+  <div className="flex justify-between w-full mt-4 px-4">
+    <button
+      onClick={prevImage}
+      className="text-white bg-gray-700 px-4 py-2 rounded hover:bg-gray-600 transition"
+    >
+      Prev
+    </button>
+    <button
+      onClick={nextImage}
+      className="text-white bg-gray-700 px-4 py-2 rounded hover:bg-gray-600 transition"
+    >
+      Next
+    </button>
+  </div>
+</div>
+
     </section>
   );
 };

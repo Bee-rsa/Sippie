@@ -62,7 +62,7 @@ const Hero = () => {
             ${isVisible ? "translate-x-0 opacity-100" : "-translate-x-20 opacity-0"}`}
         >
           <div className="inline-block">
-           <div className="h-1 w-32 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 via-white to-pink-500"></div>
+           <div className="h-1 w-32 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue via-white to-pink-500"></div>
            <h1
           className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight uppercase mb-6
              bg-gradient-to-r from-orange-900 via-orange-500 to-white bg-clip-text text-transparent
@@ -71,7 +71,7 @@ const Hero = () => {
                 Fuel your focus.
               </h1>
 
-            <div className="h-1 w-32 mx-auto mb-6 rounded-full bg-gradient-to-r from-pink-500 via-white to-blue-500"></div>
+            <div className="h-1 w-32 mx-auto mb-6 rounded-full bg-gradient-to-r from-pink-500 via-white to-blue"></div>
             <p className="text-base md:text-lg text-gray-600 italic font-light">
               Power your day with <span className="font-semibold text-black">Sippie</span>.
             </p>
