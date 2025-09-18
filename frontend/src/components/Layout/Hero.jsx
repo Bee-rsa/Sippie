@@ -5,7 +5,6 @@ const Hero = () => {
   const mobileTextRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
-  // IntersectionObserver for mobile text sliding
   useEffect(() => {
     const currentRef = mobileTextRef.current;
     if (!currentRef) return;
@@ -29,57 +28,52 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative bg-gradient-to-b from-blue to-white mb-8 -mt-[1px] overflow-hidden">
+    <section className="relative bg-gradient-to-b from-blue to-white -mb-24 -mt-[1px] overflow-hidden">
       <div className="flex flex-col md:flex-row items-start justify-start h-auto md:h-[600px] lg:h-[750px]">
 
-        {/* Image on the far left */}
+        {/* Hero Image */}
         <img
           src={heroImg}
           alt="Hero"
-          className="mt-12 h-96 sm:h-[28rem] md:h-96 lg:h-[550px] object-contain"
+          className="lg:mt-12 sm:-mt-24 h-96 sm:h-[28rem] md:h-96 lg:h-[550px] object-contain"
         />
 
-        {/* Text Content for larger screens (static, styled like mobile) */}
-        {/* Text Content on the right for devices bigger than mobile */}
-<div className="hidden md:flex flex-col justify-center text-left text-gray-900 -ml-28 flex-1 pr-8">
+        {/* Desktop Text */}
+        <div className="hidden md:flex flex-col justify-center text-left text-gray-900 mt-24 -ml-28 flex-1 pr-8">
+          <div className="inline-block text-center">
+            <div className="h-1 w-32 mx-auto mb-6 rounded-full bg-gradient-to-r from-orange-500 via-white to-pink-500"></div>
+            <h1 
+              className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight uppercase mb-6 
+                         bg-gradient-to-r from-blue-600 via-orange-500 to-white bg-clip-text text-transparent"
+            >
+              Fuel your focus.
+            </h1>
+            <div className="h-1 w-32 mx-auto mb-6 rounded-full bg-gradient-to-r from-orange-500 via-white to-pink-500"></div>
+            <p className="text-base md:text-lg text-gray-600 italic font-light">
+              Power your day with <span className="font-semibold text-black">Sippie</span>.
+            </p>
+          </div>
+        </div>
 
-  {/* Container for text and borders */}
-  <div className="inline-block">
-
-    {/* Top border */}
-    <div className="border-t-4 border-gray-400 mb-4"></div>
-
-    {/* Main Text */}
-    <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter uppercase mb-4">
-      Fuel your focus. 
-    </h1>
-
-    {/* Bottom border */}
-    <div className="border-b-4 border-gray-400 mb-4"></div>
-
-    {/* Additional words underneath */}
-    <p className="text-sm md:text-lg text-gray-700">
-      Power your day with Sippie.
-    </p>
-
-  </div>
-</div>
-
-
-        {/* Text Content for mobile (below image, slides in/out) */}
+        {/* Mobile Text */}
         <div
           ref={mobileTextRef}
-          className={`md:hidden flex flex-col justify-center text-left text-gray-900 p-6 mt-6 transform transition-transform duration-700 ease-out
-            ${isVisible ? "translate-x-0 opacity-100" : "-translate-x-60 opacity-0"}`}
+          className={`md:hidden flex flex-col justify-center text-center text-gray-900 p-6 ml-16 mb-56 -mt-12 transform transition-transform duration-700 ease-out
+            ${isVisible ? "translate-x-0 opacity-100" : "-translate-x-20 opacity-0"}`}
         >
           <div className="inline-block">
-            <div className="border-t-4 border-gray-400 mb-4"></div>
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tighter uppercase mb-4 text-gray-900">
-              Unleash your thirst
-            </h1>
-            <div className="border-b-4 border-gray-400 mb-4"></div>
-            <p className="text-sm text-gray-700">
-              Discover refreshing energy in every sip. Our drink fuels your adventures and keeps you going all day long. Hydrate, energize, and conquer!
+           <div className="h-1 w-32 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 via-white to-pink-500"></div>
+           <h1
+          className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight uppercase mb-6
+             bg-gradient-to-r from-orange-900 via-orange-500 to-white bg-clip-text text-transparent
+             whitespace-nowrap"
+              >
+                Fuel your focus.
+              </h1>
+
+            <div className="h-1 w-32 mx-auto mb-6 rounded-full bg-gradient-to-r from-pink-500 via-white to-blue-500"></div>
+            <p className="text-base md:text-lg text-gray-600 italic font-light">
+              Power your day with <span className="font-semibold text-black">Sippie</span>.
             </p>
           </div>
         </div>
