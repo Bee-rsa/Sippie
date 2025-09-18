@@ -40,7 +40,7 @@ const Navbar = () => {
     <>
       {/* Main content wrapper */}
       <div>
-        <nav className="container w-full bg-blue max-w-none flex items-center justify-between py-4 px-4 sm:px-6">
+        <nav className="container w-full bg-blue max-w-none -mb-2 flex items-center justify-between py-4 px-4 sm:px-6">
           {/* Left - Logo */}
           <div>
             <Link to="/" className="flex items-center">
